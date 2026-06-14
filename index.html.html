@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>bksOS</title>
+    <style>
+        /* GENEL AYARLAR VE PERFORMANS OPTİMİZASYONLARI */
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; overflow: hidden; background-color: #000; color: #333; }
+
+        /* MASAÜSTÜ (ANA EKRAN) */
+        #desktop { width: 100%; height: 100%; background: linear-gradient(135deg, #141e30, #243b55); display: flex; flex-direction: column; transition: background 0.5s ease; }
+
+        /* ÜST DURUM ÇUBUĞU */
+        #status-bar { height: 24px; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 0 10px; color: white; font-size: 12px; font-weight: 500; background: rgba(0,0,0,0.2); z-index: 5; }
+
+        /* UYGULAMA IZGARASI */
+        #app-grid { flex: 1; display: flex; flex-wrap: wrap; align-content: flex-start; padding: 20px 10px; }
+        .app-icon { width: 25%; display: flex; flex-direction: column; align-items: center; margin-bottom: 25px; cursor: pointer; }
+        .icon-box { width: 64px; height: 64px; border-radius: 16px; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 8px rgba(0,0,0,0.2); margin-bottom: 8px; transition: transform 0.1s; }
+        .icon-box:active { transform: scale(0.9); }
+        .icon-box svg { width: 32px; height: 32px; }
+        .app-name { color: white; font-size: 13px; text-shadow: 0 1px 3px rgba(0,0,0,0.5); text-align: center; }
+
+        /* UYGULAMA PENCERELERİ */
+        #windows-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10; }
+        .app-window { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #f4f4f6; display: flex; flex-direction: column; -webkit-transform: translate3d(0, 100%, 0); transform: translate3d(0, 100%, 0); -webkit-transition: -webkit-transform 0.4s cubic-bezier(0.1, 0.8, 0.2, 1); transition: transform 0.4s cubic-bezier(0.1, 0.8, 0.2, 1); pointer-events: auto; }
+        .app-window.active { -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
+        .window-header { height: 50px; background: #fff; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; padding: 0 15px; font-weight: 600; }
+        
+        .home-btn { background: #007aff; color: white; border: none; padding: 6px 12px; border-radius: 15px; font-size: 14px; font-weight: bold; cursor: pointer; }
+        .install-btn { background: #34A853; color: white; border: none; padding: 6px 15px; border-radius: 15px; font-size: 14px; font-weight: bold; cursor: pointer; }
+        .uninstall-btn { background: #EA4335; color: white; border: none; padding: 6px 15px; border-radius: 15px; font-size: 14px; font-weight: bold; cursor: pointer; }
+
+        .window-content { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; position: relative; display: flex; flex-direction: column; }
+
+        /* DAHİLİ TARAYICI (GOOGLE) */
+        .browser-bar { display: flex; padding: 10px; background: #e0e0e0; border-bottom: 1px solid #ccc; align-items: center; }
+        .browser-input { flex: 1; padding: 10px 15px; border-radius: 20px; border: 1px solid #ccc; font-size: 15px; outline: none; }
+        .browser-btn { margin-left: 10px; padding: 10px 15px; background: #007aff; color: white; border: none; border-radius: 20px; font-weight: bold; cursor: pointer; }
+        .browser-frame { flex: 1; width: 100%; border: none; background: white; }
+
+        /* HESAP MAKİNESİ */
+        .calc-container { display: flex; flex-direction: column; height: 100%; background: #000; }
+        .calc-screen { flex: 1; display: flex; align-items: flex-end; justify-content: flex-end; padding: 20px; font-size: 60px; color: white; word-break: break-all; }
+        .calc-buttons { display: flex; flex-wrap: wrap; padding-bottom: 20px; }
+        .calc-btn { width: 25%; height: 80px; font-size: 28px; border: 1px solid #000; background: #333; color: white; outline: none; cursor: pointer; }
+        .calc-btn.op { background: #f09a36; } .calc-btn.special { background: #a5a5a5; color: black; } .calc-btn.zero { width: 50%; }
+
+        /* SAAT */
+        .clock-container { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; background: #000; color: white; }
+        .big-clock { font-size: 100px; font-weight: 200; letter-spacing: 2px; }
+        .big-date { font-size: 24px; color: #aaa; margin-top: 10px; }
+
+        /* NOTLAR */
+        .note-area { flex: 1; width: 100%; padding: 20px; font-size: 18px; border: none; background: #fffcf0; outline: none; resize: none; font-family: inherit; line-height: 1.5; }
+
+        /* AYARLAR & MAĞAZA */
+        .list-container { padding: 20px; }
+        .list-item { background: white; padding: 15px; border-radius: 10px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .color-btn { width: 40px; height: 40px; border-radius: 20px; border: 2px solid #fff; box-shadow: 0 0 5px rgba(0,0,0,0.3); cursor: pointer; }
+        
+        /* XOX OYUNU */
+        .xox-container { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; background: #fff; }
+        .xox-board { display: grid; grid-template-columns: repeat(3, 90px); grid-template-rows: repeat(3, 90px); gap: 5px; background: #333; padding: 5px; border-radius: 10px; margin-top: 20px; }
+        .xox-cell { background: #fff; display: flex; justify-content: center; align-items: center; font-size: 50px; font-weight: bold; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <!-- MASAÜSTÜ -->
+    <div id="desktop">
+        <div id="status-bar">
+            <span id="sb-wifi">Wi-Fi</span>
+            <span id="sb-time">00:00</span>
+            <span>%100🔋 bksOS</span>
+        </div>
+        <div id="app-grid">
+            <!-- JavaScript ile doldurulacak -->
+        </div>
+    </div>
+
+    <!-- PENCERELER (Uygulamalar) -->
+    <div id="windows-container">
+        
+        <!-- GOOGLE (Tarayıcı) -->
+        <div class="app-window" id="app-google">
+            <div class="window-header">
+                <span style="color:#4285F4; font-weight:bold;">G</span><span style="color:#EA4335; font-weight:bold;">o</span><span style="color:#FBBC05; font-weight:bold;">o</span><span style="color:#4285F4; font-weight:bold;">g</span><span style="color:#34A853; font-weight:bold;">l</span><span style="color:#EA4335; font-weight:bold;">e</span>
+                <button class="home-btn" onclick="closeApp('app-google')">Ana Ekran</button>
+            </div>
+            <div class="window-content">
+                <div class="browser-bar">
+                    <input type="text" id="browser-url" class="browser-input" placeholder="Arama yapın veya tam URL girin...">
+                    <button class="browser-btn" onclick="navigateBrowser()">Git</button>
+                </div>
+                <!-- Güvenlik sebebiyle Google arama motorunun iframe izinli versiyonu kullanıldı -->
+                <iframe id="browser-frame" class="browser-frame" src="https://www.google.com/search?igu=1&q=bksOS"></iframe>
+            </div>
+        </div>
+
+        <!-- MAĞAZA (bksStore) -->
+        <div class="app-window" id="app-store">
+            <div class="window-header">
+                <span>bksStore</span>
+                <button class="home-btn" onclick="closeApp('app-store')">Ana Ekran</button>
+            </div>
+            <div class="window-content list-container">
+                <h3 style="margin-top:0;">Uygulamalar & Oyunlar</h3>
+                <p style="font-size:14px; color:#666;">Cihazınıza yeni özellikler ve oyunlar ekleyin.</p>
+                <div id="store-list">
+                    <!-- JS ile dolacak -->
+                </div>
+            </div>
+        </div>
+
+        <!-- HESAP MAKİNESİ -->
+        <div class="app-window" id="app-calc">
+            <div class="window-header">
+                <span>Hesap Makinesi</span>
+                <button class="home-btn" onclick="closeApp('app-calc')">Ana Ekran</button>
+            </div>
+            <div class="window-content calc-container">
+                <div class="calc-screen" id="calc-screen">0</div>
+                <div class="calc-buttons">
+                    <button class="calc-btn special" onclick="calcPress('C')">C</button>
+                    <button class="calc-btn special" onclick="calcPress('(')">(</button>
+                    <button class="calc-btn special" onclick="calcPress(')')">)</button>
+                    <button class="calc-btn op" onclick="calcPress('/')">÷</button>
+                    <button class="calc-btn" onclick="calcPress('7')">7</button>
+                    <button class="calc-btn" onclick="calcPress('8')">8</button>
+                    <button class="calc-btn" onclick="calcPress('9')">9</button>
+                    <button class="calc-btn op" onclick="calcPress('*')">×</button>
+                    <button class="calc-btn" onclick="calcPress('4')">4</button>
+                    <button class="calc-btn" onclick="calcPress('5')">5</button>
+                    <button class="calc-btn" onclick="calcPress('6')">6</button>
+                    <button class="calc-btn op" onclick="calcPress('-')">-</button>
+                    <button class="calc-btn" onclick="calcPress('1')">1</button>
+                    <button class="calc-btn" onclick="calcPress('2')">2</button>
+                    <button class="calc-btn" onclick="calcPress('3')">3</button>
+                    <button class="calc-btn op" onclick="calcPress('+')">+</button>
+                    <button class="calc-btn zero" onclick="calcPress('0')">0</button>
+                    <button class="calc-btn" onclick="calcPress('.')">,</button>
+                    <button class="calc-btn op" onclick="calcPress('=')">=</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SAAT -->
+        <div class="app-window" id="app-clock">
+            <div class="window-header">
+                <span>Saat</span>
+                <button class="home-btn" onclick="closeApp('app-clock')">Ana Ekran</button>
+            </div>
+            <div class="window-content clock-container">
+                <div class="big-clock" id="big-clock-display">00:00</div>
+                <div class="big-date" id="big-date-display">1 Ocak Pazartesi</div>
+            </div>
+        </div>
+
+        <!-- NOTLAR -->
+        <div class="app-window" id="app-notes">
+            <div class="window-header">
+                <span>Notlar</span>
+                <button class="home-btn" onclick="closeApp('app-notes')">Ana Ekran</button>
+            </div>
+            <div class="window-content">
+                <textarea class="note-area" id="note-area" placeholder="Notlarınızı buraya yazın... Otomatik olarak kaydedilir."></textarea>
+            </div>
+        </div>
+
+        <!-- AYARLAR -->
+        <div class="app-window" id="app-settings">
+            <div class="window-header">
+                <span>Ayarlar</span>
+                <button class="home-btn" onclick="closeApp('app-settings')">Ana Ekran</button>
+            </div>
+            <div class="window-content list-container">
+                <h3>Arka Plan Rengi</h3>
+                <div style="display: flex; gap: 15px; margin-bottom: 30px;">
+                    <div class="color-btn" style="background: linear-gradient(135deg, #141e30, #243b55);" onclick="changeBg('linear-gradient(135deg, #141e30, #243b55)')"></div>
+                    <div class="color-btn" style="background: linear-gradient(135deg, #8E2DE2, #4A00E0);" onclick="changeBg('linear-gradient(135deg, #8E2DE2, #4A00E0)')"></div>
+                    <div class="color-btn" style="background: linear-gradient(135deg, #ff9966, #ff5e62);" onclick="changeBg('linear-gradient(135deg, #ff9966, #ff5e62)')"></div>
+                    <div class="color-btn" style="background: #2c3e50;" onclick="changeBg('#2c3e50')"></div>
+                    <div class="color-btn" style="background: #000000;" onclick="changeBg('#000000')"></div>
+                </div>
+
+                <h3>Sistem Tercihleri</h3>
+                <div class="list-item">
+                    <div>
+                        <strong>Saat Formatı</strong>
+                        <div style="font-size:12px; color:#888;" id="format-desc">Şu an: 24 Saat</div>
+                    </div>
+                    <button class="home-btn" style="background:#555" onclick="toggleTimeFormat()">Değiştir</button>
+                </div>
+                <div class="list-item">
+                    <div>
+                        <strong style="color:#EA4335;">Sistemi Sıfırla</strong>
+                        <div style="font-size:12px; color:#888;">Tüm notları, uygulamaları ve ayarları siler.</div>
+                    </div>
+                    <button class="home-btn" style="background:#EA4335" onclick="resetSystem()">Sıfırla</button>
+                </div>
+
+                <h3>Sistem Bilgisi</h3>
+                <div class="list-item" style="flex-direction: column; align-items: flex-start;">
+                    <strong>bksOS v2.0</strong>
+                    <span style="font-size:14px; color:#666; margin-top:5px;">iPad 2 için dinamik uygulama mağazası ve dahili tarayıcı desteği ile güncellendi.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAĞAZA UYGULAMASI: XOX OYUNU -->
+        <div class="app-window" id="app-xox">
+            <div class="window-header">
+                <span>XOX Oyunu</span>
+                <button class="home-btn" onclick="closeApp('app-xox')">Ana Ekran</button>
+            </div>
+            <div class="window-content xox-container">
+                <h2 id="xox-status">Sıra: X</h2>
+                <div class="xox-board">
+                    <div class="xox-cell" id="xox-0" onclick="playXox(0)"></div>
+                    <div class="xox-cell" id="xox-1" onclick="playXox(1)"></div>
+                    <div class="xox-cell" id="xox-2" onclick="playXox(2)"></div>
+                    <div class="xox-cell" id="xox-3" onclick="playXox(3)"></div>
+                    <div class="xox-cell" id="xox-4" onclick="playXox(4)"></div>
+                    <div class="xox-cell" id="xox-5" onclick="playXox(5)"></div>
+                    <div class="xox-cell" id="xox-6" onclick="playXox(6)"></div>
+                    <div class="xox-cell" id="xox-7" onclick="playXox(7)"></div>
+                    <div class="xox-cell" id="xox-8" onclick="playXox(8)"></div>
+                </div>
+                <button class="home-btn" style="margin-top:20px; padding:10px 30px;" onclick="resetXox()">Yeniden Başla</button>
+            </div>
+        </div>
+
+        <!-- MAĞAZA UYGULAMASI: WIKIPEDIA -->
+        <div class="app-window" id="app-wiki">
+            <div class="window-header">
+                <span>Wikipedia</span>
+                <button class="home-btn" onclick="closeApp('app-wiki')">Ana Ekran</button>
+            </div>
+            <div class="window-content">
+                <iframe src="https://tr.m.wikipedia.org" class="browser-frame"></iframe>
+            </div>
+        </div>
+
+        <!-- MAĞAZA UYGULAMASI: HAVA DURUMU -->
+        <div class="app-window" id="app-weather">
+            <div class="window-header">
+                <span>Hava Durumu</span>
+                <button class="home-btn" onclick="closeApp('app-weather')">Ana Ekran</button>
+            </div>
+            <div class="window-content">
+                <iframe src="https://wttr.in/Istanbul?0" class="browser-frame" style="background:#000;"></iframe>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        /* --- TÜM SİSTEM UYGULAMALARI (ÇEKİRDEK VE İNDİRİLEBİLİR) --- */
+        var allApps = {
+            'app-google': { id: 'app-google', name: 'Google', bg: '#ffffff', core: true, icon: '<svg viewBox="0 0 24 24" fill="none" stroke="#4285F4" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>' },
+            'app-store': { id: 'app-store', name: 'Mağaza', bg: '#007aff', core: true, icon: '<svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>' },
+            'app-calc': { id: 'app-calc', name: 'Hesap Makinesi', bg: '#ff9500', core: true, icon: '<svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="16" y1="14" x2="16" y2="18"></line><line x1="8" y1="10" x2="8" y2="10"></line><line x1="12" y1="10" x2="12" y2="10"></line><line x1="16" y1="10" x2="16" y2="10"></line></svg>' },
+            'app-clock': { id: 'app-clock', name: 'Saat', bg: '#000000', core: true, icon: '<svg viewBox="0 0 24 24" fill="none" stroke="#ff3b30" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>' },
+            'app-notes': { id: 'app-notes', name: 'Notlar', bg: '#ffcc00', core: true, icon: '<svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>' },
+            'app-settings': { id: 'app-settings', name: 'Ayarlar', bg: '#8e8e93', core: true, icon: '<svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2z"></path></svg>' },
+            
+            // MAĞAZADAN İNDİRİLEBİLİR UYGULAMALAR
+            'app-xox': { id: 'app-xox', name: 'XOX Oyunu', bg: '#ff3b30', core: false, desc: 'Klasik zeka oyunu. Kasmadan oynayın.', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>' },
+            'app-wiki': { id: 'app-wiki', name: 'Wikipedia', bg: '#34A853', core: false, desc: 'Özgür ansiklopedi. Sistem içinde açılır.', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 2v20"></path><path d="M2 12h20"></path></svg>' },
+            'app-weather': { id: 'app-weather', name: 'Hava Durumu', bg: '#5ac8fa', core: false, desc: 'Güncel hava durumu verisi.', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"></path></svg>' }
+        };
+
+        // Varsayılan Yüklü Uygulamalar
+        var installedApps = ['app-google', 'app-store', 'app-calc', 'app-clock', 'app-notes', 'app-settings'];
+        var is24h = true;
+
+        /* --- SİSTEM & MASAÜSTÜ YÖNETİMİ --- */
+        function initSystem() {
+            try {
+                // Kayıtlı verileri çek
+                var savedApps = localStorage.getItem('bksOS_apps');
+                if(savedApps) installedApps = JSON.parse(savedApps);
+
+                var savedBg = localStorage.getItem('bksOS_bg');
+                if(savedBg) document.getElementById('desktop').style.background = savedBg;
+
+                var savedNote = localStorage.getItem('bksOS_note');
+                if(savedNote) document.getElementById('note-area').value = savedNote;
+
+                var savedFormat = localStorage.getItem('bksOS_24h');
+                if(savedFormat !== null) is24h = (savedFormat === '1');
+                
+                document.getElementById('format-desc').innerText = is24h ? 'Şu an: 24 Saat' : 'Şu an: 12 Saat (AM/PM)';
+
+            } catch(e) {}
+            
+            renderDesktop();
+            renderStore();
+            updateClock();
+        }
+
+        function renderDesktop() {
+            var grid = document.getElementById('app-grid');
+            var html = '';
+            for(var i=0; i<installedApps.length; i++) {
+                var app = allApps[installedApps[i]];
+                if(app) {
+                    html += '<div class="app-icon" onclick="openApp(\'' + app.id + '\')">';
+                    html += '<div class="icon-box" style="background:' + app.bg + '">' + app.icon + '</div>';
+                    html += '<div class="app-name">' + app.name + '</div>';
+                    html += '</div>';
+                }
+            }
+            grid.innerHTML = html;
+        }
+
+        function openApp(id) {
+            var el = document.getElementById(id);
+            if(el) el.classList.add('active');
+        }
+
+        function closeApp(id) {
+            var el = document.getElementById(id);
+            if(el) el.classList.remove('active');
+        }
+
+        /* --- MAĞAZA (İNDİRME / KALDIRMA) --- */
+        function renderStore() {
+            var list = document.getElementById('store-list');
+            var html = '';
+            for(var key in allApps) {
+                var app = allApps[key];
+                if(!app.core) { // Sadece indirilebilir (sistem olmayan) uygulamalar
+                    var isInstalled = (installedApps.indexOf(app.id) !== -1);
+                    html += '<div class="list-item">';
+                    html += '<div style="display:flex; align-items:center;">';
+                    html += '<div class="icon-box" style="width:40px;height:40px;border-radius:10px;margin-bottom:0;margin-right:15px;background:' + app.bg + '">' + app.icon + '</div>';
+                    html += '<div><strong>' + app.name + '</strong><div style="font-size:12px; color:#888;">' + app.desc + '</div></div>';
+                    html += '</div>';
+                    
+                    if(isInstalled) {
+                        html += '<button class="uninstall-btn" onclick="uninstallApp(\'' + app.id + '\')">Kaldır</button>';
+                    } else {
+                        html += '<button class="install-btn" onclick="installApp(\'' + app.id + '\')">İndir</button>';
+                    }
+                    html += '</div>';
+                }
+            }
+            list.innerHTML = html;
+        }
+
+        function installApp(id) {
+            if(installedApps.indexOf(id) === -1) {
+                installedApps.push(id);
+                saveApps();
+                renderDesktop();
+                renderStore();
+            }
+        }
+
+        function uninstallApp(id) {
+            var idx = installedApps.indexOf(id);
+            if(idx !== -1) {
+                installedApps.splice(idx, 1);
+                saveApps();
+                renderDesktop();
+                renderStore();
+                closeApp(id); // Açıksa kapat
+            }
+        }
+
+        function saveApps() {
+            try { localStorage.setItem('bksOS_apps', JSON.stringify(installedApps)); } catch(e){}
+        }
+
+        /* --- DAHİLİ TARAYICI YÖNETİMİ --- */
+        function navigateBrowser() {
+            var query = document.getElementById('browser-url').value;
+            var frame = document.getElementById('browser-frame');
+            if(query.indexOf('http://') === 0 || query.indexOf('https://') === 0) {
+                frame.src = query;
+            } else {
+                // "igu=1" parametresi google'ın iframe içinde kısıtlamalarını hafifleten eski bir numaradır.
+                frame.src = 'https://www.google.com/search?igu=1&q=' + encodeURIComponent(query);
+            }
+        }
+        
+        document.getElementById('browser-url').addEventListener('keypress', function(e){
+            if(e.key === 'Enter') navigateBrowser();
+        });
+
+        /* --- OYUN: XOX (TIC TAC TOE) --- */
+        var xoxBoard = ['', '', '', '', '', '', '', '', ''];
+        var xoxPlayer = 'X';
+        var xoxActive = true;
+
+        function playXox(idx) {
+            if(!xoxActive || xoxBoard[idx] !== '') return;
+            xoxBoard[idx] = xoxPlayer;
+            document.getElementById('xox-' + idx).innerText = xoxPlayer;
+            
+            var wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+            var win = false;
+            for(var i=0; i<wins.length; i++) {
+                var a = wins[i][0], b = wins[i][1], c = wins[i][2];
+                if(xoxBoard[a] && xoxBoard[a] === xoxBoard[b] && xoxBoard[a] === xoxBoard[c]) win = true;
+            }
+
+            if(win) {
+                document.getElementById('xox-status').innerText = xoxPlayer + ' Kazandı!';
+                xoxActive = false;
+            } else if (xoxBoard.indexOf('') === -1) {
+                document.getElementById('xox-status').innerText = 'Berabere!';
+                xoxActive = false;
+            } else {
+                xoxPlayer = (xoxPlayer === 'X') ? 'O' : 'X';
+                document.getElementById('xox-status').innerText = 'Sıra: ' + xoxPlayer;
+            }
+        }
+
+        function resetXox() {
+            xoxBoard = ['', '', '', '', '', '', '', '', ''];
+            xoxPlayer = 'X';
+            xoxActive = true;
+            document.getElementById('xox-status').innerText = 'Sıra: X';
+            for(var i=0; i<9; i++) document.getElementById('xox-' + i).innerText = '';
+        }
+
+        /* --- AYARLAR & DİĞER FONKSİYONLAR --- */
+        function changeBg(val) {
+            document.getElementById('desktop').style.background = val;
+            try { localStorage.setItem('bksOS_bg', val); } catch(e){}
+        }
+
+        function toggleTimeFormat() {
+            is24h = !is24h;
+            try { localStorage.setItem('bksOS_24h', is24h ? '1' : '0'); } catch(e){}
+            document.getElementById('format-desc').innerText = is24h ? 'Şu an: 24 Saat' : 'Şu an: 12 Saat (AM/PM)';
+            updateClock();
+        }
+
+        function resetSystem() {
+            if(confirm('Tüm veriler, notlar ve uygulamalar silinecek. Emin misiniz?')) {
+                try { localStorage.clear(); } catch(e){}
+                location.reload();
+            }
+        }
+
+        function updateClock() {
+            var now = new Date();
+            var h = now.getHours();
+            var m = now.getMinutes();
+            var ampm = '';
+            
+            if(!is24h) {
+                ampm = h >= 12 ? ' PM' : ' AM';
+                h = h % 12;
+                h = h ? h : 12;
+            }
+            if(h < 10 && is24h) h = '0' + h;
+            if(m < 10) m = '0' + m;
+            
+            var timeStr = h + ':' + m + ampm;
+            document.getElementById('sb-time').innerText = timeStr;
+            document.getElementById('big-clock-display').innerText = timeStr;
+
+            var days = ['Pazar','Pazartesi','Salı','Çarşamba','Perşembe','Cuma','Cumartesi'];
+            var months = ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
+            document.getElementById('big-date-display').innerText = now.getDate() + ' ' + months[now.getMonth()] + ' ' + days[now.getDay()];
+        }
+        setInterval(updateClock, 1000);
+
+        // Hesap Makinesi Mantığı
+        var calcValue = "0";
+        function calcPress(val) {
+            var screen = document.getElementById('calc-screen');
+            if(val === 'C') { calcValue = "0"; } 
+            else if (val === '=') {
+                try { calcValue = eval(calcValue.replace(/[^-()\d/*+.]/g, '')).toString(); } catch(e) { calcValue = "Hata"; }
+            } else {
+                if(calcValue === "0" || calcValue === "Hata") {
+                    if(['/','*','+','-'].indexOf(val) === -1) calcValue = val;
+                    else calcValue += val;
+                } else { calcValue += val; }
+            }
+            if(calcValue.length > 15) calcValue = calcValue.substring(0, 15);
+            screen.innerText = calcValue;
+        }
+
+        // Notlar
+        document.getElementById('note-area').addEventListener('input', function() {
+            try { localStorage.setItem('bksOS_note', this.value); } catch(e){}
+        });
+
+        /* --- BAŞLAT --- */
+        window.onload = initSystem;
+
+    </script>
+</body>
+</html>
