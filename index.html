@@ -71,7 +71,6 @@
 </head>
 <body>
 
-    <!-- MASAÜSTÜ -->
     <div id="desktop">
         <div id="status-bar">
             <div>
@@ -81,15 +80,11 @@
             <span id="sb-time">00:00</span>
             <span>%100🔋 bksOS</span>
         </div>
-        <div id="app-grid">
-            <!-- JavaScript ile doldurulacak -->
-        </div>
+        <div id="app-grid"></div>
     </div>
 
-    <!-- PENCERELER (Uygulamalar) -->
     <div id="windows-container">
         
-        <!-- GOOGLE (Tarayıcı) -->
         <div class="app-window" id="app-google">
             <div class="window-header">
                 <span style="color:#4285F4; font-weight:bold;">G</span><span style="color:#EA4335; font-weight:bold;">o</span><span style="color:#FBBC05; font-weight:bold;">o</span><span style="color:#4285F4; font-weight:bold;">g</span><span style="color:#34A853; font-weight:bold;">l</span><span style="color:#EA4335; font-weight:bold;">e</span>
@@ -104,7 +99,6 @@
             </div>
         </div>
 
-        <!-- MAĞAZA (bksStore) -->
         <div class="app-window" id="app-store">
             <div class="window-header">
                 <span>bksStore</span>
@@ -117,7 +111,6 @@
             </div>
         </div>
 
-        <!-- DOSYALAR -->
         <div class="app-window" id="app-files">
             <div class="window-header">
                 <span>Dosyalar</span>
@@ -126,16 +119,15 @@
             <div class="window-content list-container">
                 <input type="file" id="file-uploader" style="display:none;" onchange="handleFileUpload(event)">
                 <button class="home-btn" style="width: 100%; padding: 15px; font-size: 16px; background: #34A853;" onclick="document.getElementById('file-uploader').click()">+ Dosya İçe Aktar</button>
-                <div id="file-storage-info" style="font-size: 12px; color: #888; text-align: center; margin-top: 10px;">Bulut Alanı Aktif. Maks 1.5MB dosya limiti.</div>
+                <div id="file-storage-info" style="font-size: 12px; color: #888; text-align: center; margin-top: 10px;">Gelişmiş Kalıcı Hafıza (IndexedDB) Aktif.</div>
                 
                 <h3 style="margin-bottom:5px;">Belgelerim</h3>
-                <p style="font-size:12px; color:#888; margin-top:0;">Bulut Senkronizasyonu ile dosyalarınız diğer cihazlarınızda da görünür.</p>
+                <p style="font-size:12px; color:#888; margin-top:0;">Sistem kapatılsa bile dosyalarınız güvendedir.</p>
                 
                 <div id="file-list" style="margin-top: 15px;"></div>
             </div>
         </div>
 
-        <!-- HESAP MAKİNESİ -->
         <div class="app-window" id="app-calc">
             <div class="window-header">
                 <span>Hesap Makinesi</span>
@@ -167,7 +159,6 @@
             </div>
         </div>
 
-        <!-- SAAT -->
         <div class="app-window" id="app-clock">
             <div class="window-header">
                 <span>Saat</span>
@@ -179,7 +170,6 @@
             </div>
         </div>
 
-        <!-- NOTLAR -->
         <div class="app-window" id="app-notes">
             <div class="window-header">
                 <span>Notlar</span>
@@ -190,7 +180,6 @@
             </div>
         </div>
 
-        <!-- AYARLAR -->
         <div class="app-window" id="app-settings">
             <div class="window-header">
                 <span>Ayarlar</span>
@@ -224,13 +213,12 @@
 
                 <h3>Sistem Bilgisi</h3>
                 <div class="list-item" style="flex-direction: column; align-items: flex-start;">
-                    <strong>bksOS v4.0 (Cloud Edition)</strong>
-                    <span style="font-size:14px; color:#666; margin-top:5px;">Otomatik bulut senkronizasyonu eklendi. Cihazlar arası dosya ve ayar aktarımı aktiftir.</span>
+                    <strong>bksOS v5.0 (Ultimate Edition)</strong>
+                    <span style="font-size:14px; color:#666; margin-top:5px;">Gelişmiş Kalıcı Hafıza (IndexedDB) eklendi. Artık büyük dosyalar tarayıcı kapatılsa bile güvenle saklanır.</span>
                 </div>
             </div>
         </div>
 
-        <!-- MAĞAZA UYGULAMASI: XOX OYUNU -->
         <div class="app-window" id="app-xox">
             <div class="window-header">
                 <span>XOX Oyunu</span>
@@ -253,7 +241,6 @@
             </div>
         </div>
 
-        <!-- MAĞAZA UYGULAMASI: WIKIPEDIA -->
         <div class="app-window" id="app-wiki">
             <div class="window-header">
                 <span>Wikipedia</span>
@@ -264,7 +251,6 @@
             </div>
         </div>
 
-        <!-- MAĞAZA UYGULAMASI: HAVA DURUMU -->
         <div class="app-window" id="app-weather">
             <div class="window-header">
                 <span>Hava Durumu</span>
@@ -275,12 +261,31 @@
             </div>
         </div>
 
+        <div class="app-window" id="app-ots">
+            <div class="window-header">
+                <span style="color:#4f46e5; font-weight:bold;">ÖTS - Öğrenci Takip</span>
+                <button class="home-btn" onclick="closeApp('app-ots')">Ana Ekran</button>
+            </div>
+            <div class="window-content" style="padding:0; overflow:hidden;">
+                <iframe id="ots-frame" style="width:100%; height:100%; flex:1; border:none; background:#f8fafc; display:block;"></iframe>
+            </div>
+        </div>
+
+        <div class="app-window" id="app-turkscript">
+            <div class="window-header">
+                <span style="color:#8b5cf6; font-weight:bold;">Turk-Script IDE</span>
+                <button class="home-btn" onclick="closeApp('app-turkscript')">Ana Ekran</button>
+            </div>
+            <div class="window-content" style="padding:0; overflow:hidden;">
+                <iframe id="turkscript-frame" style="width:100%; height:100%; flex:1; border:none; background:#0f172a; display:block;"></iframe>
+            </div>
+        </div>
+
     </div>
 
-    <!-- ESKİ CİHAZLAR VE TEMEL İŞLEMLER İÇİN ÇEKİRDEK KODLAR (iOS 9 Uyumlu) -->
     <script>
         window.allApps = {
-            'app-google': { id: 'app-google', name: 'Google', bg: '#ffffff', core: true, icon: '<svg viewBox="0 0 24 24" fill="none" stroke="#4285F4" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>' },
+            'app-google': { id: 'app-google', name: 'Google', bg: '#ffffff', core: true, icon: '<svg viewBox="0 0 24 24" fill="none" stroke="#4285F4" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z"></path></svg>' },
             'app-store': { id: 'app-store', name: 'Mağaza', bg: '#007aff', core: true, icon: '<svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>' },
             'app-files': { id: 'app-files', name: 'Dosyalar', bg: '#f1c40f', core: true, icon: '<svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>' },
             'app-calc': { id: 'app-calc', name: 'Hesap Makinesi', bg: '#ff9500', core: true, icon: '<svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="16" y1="14" x2="16" y2="18"></line><line x1="8" y1="10" x2="8" y2="10"></line><line x1="12" y1="10" x2="12" y2="10"></line><line x1="16" y1="10" x2="16" y2="10"></line></svg>' },
@@ -289,15 +294,90 @@
             'app-settings': { id: 'app-settings', name: 'Ayarlar', bg: '#8e8e93', core: true, icon: '<svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2z"></path></svg>' },
             'app-xox': { id: 'app-xox', name: 'XOX Oyunu', bg: '#ff3b30', core: false, desc: 'Klasik zeka oyunu. Kasmadan oynayın.', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>' },
             'app-wiki': { id: 'app-wiki', name: 'Wikipedia', bg: '#34A853', core: false, desc: 'Özgür ansiklopedi. Sistem içinde açılır.', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 2v20"></path><path d="M2 12h20"></path></svg>' },
-            'app-weather': { id: 'app-weather', name: 'Hava Durumu', bg: '#5ac8fa', core: false, desc: 'Güncel hava durumu verisi.', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"></path></svg>' }
+            'app-weather': { id: 'app-weather', name: 'Hava Durumu', bg: '#5ac8fa', core: false, desc: 'Güncel hava durumu verisi.', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"></path></svg>' },
+            'app-ots': { id: 'app-ots', name: 'ÖTS', bg: '#4f46e5', core: false, desc: 'Öğrenci Takip Sistemi V3', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>' },
+            'app-turkscript': { id: 'app-turkscript', name: 'Turk-Script', bg: '#8b5cf6', core: false, desc: 'Türkçe Programlama Dili IDE', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>' }
         };
 
         window.installedApps = ['app-google', 'app-store', 'app-files', 'app-calc', 'app-clock', 'app-notes', 'app-settings'];
         window.is24h = true;
         window.myFiles = [];
         window.currentBg = "linear-gradient(135deg, #141e30, #243b55)";
+        window.osDB = null;
 
-        // Yerel & Bulut Kayıt Yöneticisi
+        window.initDB = function(callback) {
+            var req = indexedDB.open("bksOS_DB", 1);
+            req.onupgradeneeded = function(e) {
+                var db = e.target.result;
+                if (!db.objectStoreNames.contains("files")) {
+                    db.createObjectStore("files", { keyPath: "id" });
+                }
+            };
+            req.onsuccess = function(e) {
+                window.osDB = e.target.result;
+                var tx = window.osDB.transaction("files", "readonly");
+                var store = tx.objectStore("files");
+                var getReq = store.getAll();
+                getReq.onsuccess = function(ev) {
+                    window.myFiles = ev.target.result || [];
+                    
+                    var oldFiles = localStorage.getItem('bksOS_files');
+                    if (oldFiles) {
+                        try {
+                            var parsed = JSON.parse(oldFiles);
+                            if (parsed.length > 0 && window.myFiles.length === 0) {
+                                parsed.forEach(function(f) { window.saveFileToDB(f); });
+                                window.myFiles = parsed;
+                            }
+                        } catch(err){}
+                        localStorage.removeItem('bksOS_files');
+                    }
+                    callback();
+                };
+            };
+            req.onerror = function(e) {
+                console.error("Kalıcı hafıza başlatılamadı.", e);
+                callback(); 
+            };
+        };
+
+        window.saveFileToDB = function(fileObj) {
+            if(!window.osDB) return;
+            var tx = window.osDB.transaction("files", "readwrite");
+            tx.objectStore("files").put(fileObj);
+        };
+
+        window.deleteFileFromDB = function(id) {
+            if(!window.osDB) return;
+            var tx = window.osDB.transaction("files", "readwrite");
+            tx.objectStore("files").delete(id);
+        };
+
+        window.clearAllFilesFromDB = function() {
+            if(!window.osDB) return;
+            var tx = window.osDB.transaction("files", "readwrite");
+            tx.objectStore("files").clear();
+        };
+
+        window.saveFileToOS = function(name, type, size, data) {
+            var newFile = {
+                id: 'file_' + new Date().getTime() + '_' + Math.floor(Math.random()*1000),
+                name: name,
+                type: type,
+                size: size,
+                data: data
+            };
+            window.myFiles.push(newFile);
+            window.saveFileToDB(newFile); 
+            if(window.cloudSyncFileAdd) window.cloudSyncFileAdd(newFile); 
+            window.renderFiles();
+            return true;
+        };
+
+        window.getOSFiles = function() {
+            return window.myFiles;
+        };
+
         function saveSettingsLocally() {
             var data = { bg: window.currentBg, is24h: window.is24h, note: document.getElementById('note-area').value, apps: window.installedApps };
             try { localStorage.setItem('bksOS_settings', JSON.stringify(data)); } catch(e){}
@@ -315,17 +395,37 @@
                     if(data.note) document.getElementById('note-area').value = data.note;
                     if(data.apps) window.installedApps = data.apps;
                 }
-                var savedFiles = localStorage.getItem('bksOS_files');
-                if(savedFiles) { window.myFiles = JSON.parse(savedFiles); }
             } catch(e) {}
             
             document.getElementById('desktop').style.background = window.currentBg;
             document.getElementById('format-desc').innerText = window.is24h ? 'Şu an: 24 Saat' : 'Şu an: 12 Saat (AM/PM)';
             
-            renderDesktop();
-            renderStore();
-            renderFiles();
-            updateClock();
+            // ÖTS Kaynak Kodu Yükleme (Null korumalı)
+            var otsSourceElement = document.getElementById('ots-source');
+            if (otsSourceElement) {
+                var otsRawCode = otsSourceElement.innerHTML;
+                var otsFullCode = '<!DOCTYPE html><html lang="tr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body class="flex h-screen overflow-hidden text-slate-800">' + otsRawCode + '</body></html>';
+                var otsFrame = document.getElementById('ots-frame');
+                if (otsFrame) otsFrame.srcdoc = otsFullCode;
+            }
+
+            // Turk-Script Kaynak Kodu Yükleme (Hata düzeltildi: textContent ile güvenli çekim yapılıyor)
+            var tsHeadElement = document.getElementById('turkscript-head');
+            var tsBodyElement = document.getElementById('turkscript-body');
+            if (tsHeadElement && tsBodyElement) {
+                var tsHead = tsHeadElement.textContent || tsHeadElement.innerHTML;
+                var tsBody = tsBodyElement.textContent || tsBodyElement.innerHTML;
+                var tsFullCode = '<!DOCTYPE html><html lang="tr"><head>' + tsHead + '</head><body class="bg-slate-900 text-slate-100 h-screen flex flex-col font-sans overflow-hidden">' + tsBody + '</body></html>';
+                var tsFrame = document.getElementById('turkscript-frame');
+                if (tsFrame) tsFrame.srcdoc = tsFullCode;
+            }
+
+            window.initDB(function() {
+                renderDesktop();
+                renderStore();
+                renderFiles();
+                updateClock();
+            });
         };
 
         window.renderDesktop = function() {
@@ -345,7 +445,6 @@
         window.openApp = function(id) { var el = document.getElementById(id); if(el) el.classList.add('active'); };
         window.closeApp = function(id) { var el = document.getElementById(id); if(el) el.classList.remove('active'); };
 
-        /* --- DOSYA YÖNETİCİSİ --- */
         window.handleFileUpload = function(event) {
             var file = event.target.files[0];
             if(!file) return;
@@ -366,7 +465,7 @@
                 };
 
                 window.myFiles.push(newFile);
-                try { localStorage.setItem('bksOS_files', JSON.stringify(window.myFiles)); } catch(err) {}
+                window.saveFileToDB(newFile);
                 
                 if(window.cloudSyncFileAdd) window.cloudSyncFileAdd(newFile);
                 
@@ -397,11 +496,11 @@
         };
 
         window.deleteFile = function(id) {
-            if(confirm("Bu dosyayı hem buluttan hem cihazdan silmek istediğinize emin misiniz?")) {
+            if(confirm("Bu dosyayı kalıcı olarak silmek istediğinize emin misiniz?")) {
                 var temp = [];
                 for(var i=0; i<window.myFiles.length; i++) { if(window.myFiles[i].id !== id) temp.push(window.myFiles[i]); }
                 window.myFiles = temp;
-                try { localStorage.setItem('bksOS_files', JSON.stringify(window.myFiles)); } catch(e){}
+                window.deleteFileFromDB(id);
                 if(window.cloudSyncFileRemove) window.cloudSyncFileRemove(id);
                 renderFiles();
             }
@@ -415,7 +514,6 @@
             } else { alert("Açılır pencere engelleyicisi açık olabilir."); }
         };
 
-        /* --- MAĞAZA --- */
         window.renderStore = function() {
             var list = document.getElementById('store-list');
             var html = '';
@@ -449,7 +547,6 @@
             }
         };
 
-        /* --- TARAYICI --- */
         window.navigateBrowser = function() {
             var query = document.getElementById('browser-url').value;
             var frame = document.getElementById('browser-frame');
@@ -457,7 +554,6 @@
             else frame.src = 'https://www.google.com/search?igu=1&q=' + encodeURIComponent(query);
         };
 
-        /* --- AYARLAR --- */
         window.changeBg = function(val) {
             window.currentBg = val;
             document.getElementById('desktop').style.background = val;
@@ -473,6 +569,7 @@
         window.resetSystem = function() {
             if(confirm('Tüm veriler temizlenecek. Emin misiniz?')) {
                 try { localStorage.clear(); } catch(e){}
+                window.clearAllFilesFromDB();
                 location.reload();
             }
         };
@@ -491,14 +588,12 @@
         };
         setInterval(window.updateClock, 1000);
 
-        // Notlar - Yazarken sürekli kaydetmesin diye ufak bir bekleme (Debounce)
         var noteTimeout = null;
         document.getElementById('note-area').addEventListener('input', function() {
             clearTimeout(noteTimeout);
-            noteTimeout = setTimeout(saveSettingsLocally, 1000); // 1 saniye duraksayınca kaydet
+            noteTimeout = setTimeout(saveSettingsLocally, 1000); 
         });
 
-        /* --- HESAP MAKİNESİ & OYUN --- */
         window.calcValue = "0";
         window.calcPress = function(val) {
             var screen = document.getElementById('calc-screen');
@@ -523,17 +618,15 @@
         };
         window.resetXox = function() { window.xoxBoard = ['', '', '', '', '', '', '', '', '']; window.xoxPlayer = 'X'; window.xoxActive = true; document.getElementById('xox-status').innerText = 'Sıra: X'; for(var i=0; i<9; i++) document.getElementById('xox-' + i).innerText = ''; };
 
-        // Sistemi Başlat
-        window.onload = initSystem;
+        // DOM tamamen hazır olduğunda sistemi başlat
+        window.addEventListener('DOMContentLoaded', window.initSystem);
     </script>
 
-    <!-- MODERN CİHAZLAR İÇİN GİZLİ BULUT SENKRONİZASYONU (Firebase) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInWithCustomToken, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, setDoc, collection, onSnapshot, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Güvenli ortam değişkenleri kontrolü (Uygulamanın çalıştığı yere göre)
         if (typeof __firebase_config !== 'undefined') {
             const firebaseConfig = JSON.parse(__firebase_config);
             const app = initializeApp(firebaseConfig);
@@ -541,7 +634,6 @@
             const db = getFirestore(app);
             const appId = typeof __app_id !== 'undefined' ? __app_id : 'bksos-cloud';
 
-            // 1. Önce Kimlik Doğrulamayı Yapıyoruz
             const initAuth = async () => {
                 try {
                     if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
@@ -553,21 +645,16 @@
             };
             initAuth();
 
-            // 2. Kimlik doğrulandıktan sonra verileri çek ve yaz
             onAuthStateChanged(auth, (user) => {
                 if (!user) return;
                 
-                // Başarılı olursa Durum Çubuğunda Yerel yazısını "Bulut Aktif" e çevirir.
                 const cloudIcon = document.getElementById('sb-cloud');
                 cloudIcon.innerText = '☁️ Bulut Aktif';
                 cloudIcon.style.color = '#34A853';
 
-                // BULUTTAN CİHAZA -> Ayarları ve Notları İndir (Sürekli Dinler)
                 onSnapshot(doc(db, 'artifacts', appId, 'users', user.uid, 'settings', 'config'), (docSnap) => {
                     if (docSnap.exists()) {
                         const data = docSnap.data();
-                        
-                        // Cihazdaki ekranı güncelle
                         if (data.bg && window.currentBg !== data.bg) {
                             window.currentBg = data.bg;
                             document.getElementById('desktop').style.background = data.bg;
@@ -588,15 +675,16 @@
                     }
                 }, (err) => console.error("Bulut okuma hatası", err));
 
-                // BULUTTAN CİHAZA -> Dosyaları İndir
                 onSnapshot(collection(db, 'artifacts', appId, 'users', user.uid, 'files'), (snapshot) => {
                     const cloudFiles = [];
                     snapshot.forEach(doc => cloudFiles.push(doc.data()));
-                    window.myFiles = cloudFiles; // Yerel listeyi bulutla eşitle
-                    window.renderFiles(); // Ekranı güncelle
+                    if (window.osDB) {
+                        cloudFiles.forEach(f => window.saveFileToDB(f)); 
+                    }
+                    window.myFiles = cloudFiles;
+                    window.renderFiles();
                 }, (err) => console.error("Dosya okuma hatası", err));
 
-                // CİHAZDAN BULUTA -> Kullanıcı bir işlem yaparsa Buluta Gönderici Fonksiyonlar
                 window.cloudSyncSettings = async function(settingsData) {
                     try { await setDoc(doc(db, 'artifacts', appId, 'users', user.uid, 'settings', 'config'), settingsData); } 
                     catch(e) { console.error("Bulut kaydetme hatası", e); }
@@ -614,5 +702,1210 @@
             });
         }
     </script>
+
+    <template id="ots-source">
+        <style>
+            body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+            ::-webkit-scrollbar { width: 8px; height: 8px; }
+            ::-webkit-scrollbar-track { background: #f1f1f1; }
+            ::-webkit-scrollbar-thumb { background: #c7c7cc; border-radius: 4px; }
+            ::-webkit-scrollbar-thumb:hover { background: #a0a0a5; }
+            .glass-effect { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); }
+            .fade-in { animation: fadeIn 0.3s ease-in-out; }
+            @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+            #toast-container { position: fixed; bottom: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
+            .toast { min-width: 250px; background-color: #333; color: white; padding: 16px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: space-between; animation: slideInRight 0.3s forwards, fadeOut 0.3s 2.7s forwards; }
+            .toast.success { border-left: 4px solid #10b981; } .toast.error { border-left: 4px solid #ef4444; }
+            @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+            @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+            .exporting-mode { background: white !important; border: none !important; box-shadow: none !important; border-radius: 0 !important; padding: 30px !important; }
+            body, html { margin: 0; padding: 0; height: 100%; height: 100dvh; overflow: hidden; }
+        </style>
+        
+        <!-- Loading Leaflet, FontAwesome, ChartJS inside ÖTS App Frame -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        fontFamily: { sans: ['Inter', 'sans-serif'] },
+                        colors: {
+                            primary: '#4f46e5',
+                            secondary: '#818cf8',
+                            dark: '#1e1b4b',
+                        }
+                    }
+                }
+            }
+        </script>
+
+        <div class="flex h-full w-full overflow-hidden">
+            <aside class="w-64 bg-dark text-white flex flex-col transition-all duration-300 hidden md:flex z-20">
+                <div class="h-16 flex items-center justify-center border-b border-white/10 px-4">
+                    <i class="fa-solid fa-square-root-variable text-2xl text-secondary mr-3"></i>
+                    <h1 class="text-xl font-bold tracking-wider">ÖTS</h1>
+                </div>
+                <nav class="flex-1 overflow-y-auto py-6 px-3 space-y-2">
+                    <button onclick="navigate('dashboard')" id="nav-dashboard" class="w-full flex items-center px-4 py-3 text-sm font-medium rounded-xl bg-primary text-white transition-colors">
+                        <i class="fa-solid fa-chart-pie w-6"></i> Gösterge Paneli
+                    </button>
+                    <button onclick="navigate('students')" id="nav-students" class="w-full flex items-center px-4 py-3 text-sm font-medium rounded-xl text-slate-300 hover:bg-white/10 hover:text-white transition-colors">
+                        <i class="fa-solid fa-users w-6"></i> Öğrenciler
+                    </button>
+                    <button onclick="navigate('assignments')" id="nav-assignments" class="w-full flex items-center px-4 py-3 text-sm font-medium rounded-xl text-slate-300 hover:bg-white/10 hover:text-white transition-colors">
+                        <i class="fa-solid fa-book-open w-6"></i> Tüm Ödevler
+                    </button>
+                    <button onclick="navigate('exams')" id="nav-exams" class="w-full flex items-center px-4 py-3 text-sm font-medium rounded-xl text-slate-300 hover:bg-white/10 hover:text-white transition-colors">
+                        <i class="fa-solid fa-file-signature w-6"></i> Deneme Sınavları
+                    </button>
+                </nav>
+                <div class="p-4 border-t border-white/10 space-y-3 shrink-0">
+                    <button onclick="exportData()" class="w-full flex items-center justify-center px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-sm font-medium shadow-lg transition">
+                        <i class="fa-solid fa-download mr-2"></i> Dosyalara Kaydet
+                    </button>
+                    <button onclick="openOSFilePickerModal()" class="w-full flex items-center justify-center px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg text-sm font-medium shadow-lg transition">
+                        <i class="fa-solid fa-upload mr-2"></i> Veri Yükle
+                    </button>
+                </div>
+            </aside>
+
+            <main class="flex-1 flex flex-col h-screen relative w-full bg-slate-50">
+                <header class="h-16 glass-effect shadow-sm flex items-center justify-between px-6 z-10 sticky top-0 shrink-0">
+                    <div class="flex items-center">
+                        <h2 id="page-title" class="text-xl font-semibold text-slate-800">Gösterge Paneli</h2>
+                    </div>
+                </header>
+                <div id="content-area" class="flex-1 overflow-y-auto p-4 md:p-8"></div>
+            </main>
+        </div>
+
+        <div id="student-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden items-center justify-center z-50">
+            <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg mx-4 flex flex-col max-h-[90vh] overflow-hidden">
+                <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50"><h3 class="text-lg font-bold text-slate-800" id="student-modal-title">Yeni Öğrenci Ekle</h3><button onclick="closeModal('student-modal')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-xl"></i></button></div>
+                <form id="student-form" onsubmit="handleStudentSubmit(event)" class="p-6 space-y-4 overflow-y-auto">
+                    <input type="hidden" id="student-id">
+                    <div><label class="block text-sm font-medium text-slate-700 mb-1">Öğrenci Ad Soyad</label><input type="text" id="student-name" required class="w-full px-4 py-2 border border-slate-300 rounded-lg outline-none"></div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div><label class="block text-sm font-medium text-slate-700 mb-1">Sınıf</label>
+                            <select id="student-grade" class="w-full px-4 py-2 border border-slate-300 rounded-lg bg-white">
+                                <option value="8. Sınıf">8. Sınıf</option>
+                                <option value="12. Sınıf">12. Sınıf</option>
+                                <option value="Mezun">Mezun</option>
+                            </select>
+                        </div>
+                        <div><label class="block text-sm font-medium text-slate-700 mb-1">Okul</label><input type="text" id="student-school" class="w-full px-4 py-2 border border-slate-300 rounded-lg"></div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div><label class="block text-sm font-medium text-slate-700 mb-1">Veli Adı</label><input type="text" id="student-parent-name" class="w-full px-4 py-2 border border-slate-300 rounded-lg"></div>
+                        <div><label class="block text-sm font-medium text-slate-700 mb-1">Veli Tel</label><input type="text" id="student-parent-phone" class="w-full px-4 py-2 border border-slate-300 rounded-lg"></div>
+                    </div>
+                    <div class="col-span-2 mt-2">
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Öğrenci Konumu</label>
+                        <div id="map" class="w-full h-40 rounded-lg border border-slate-300 z-10 relative"></div>
+                        <input type="hidden" id="student-lat">
+                        <input type="hidden" id="student-lng">
+                    </div>
+                    <div class="pt-4 flex justify-end space-x-3 border-t"><button type="button" onclick="closeModal('student-modal')" class="px-5 py-2.5 bg-slate-100 rounded-lg">İptal</button><button type="submit" class="px-5 py-2.5 bg-primary text-white rounded-lg">Kaydet</button></div>
+                </form>
+            </div>
+        </div>
+
+        <div id="os-file-picker-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden items-center justify-center z-50">
+            <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md mx-4 flex flex-col max-h-[90vh] overflow-hidden">
+                <div class="px-6 py-4 border-b bg-slate-50 flex justify-between items-center">
+                    <h3 class="text-lg font-bold text-slate-800">Sistem Dosyalarından Seç</h3>
+                    <button onclick="closeModal('os-file-picker-modal')" class="text-slate-500">✖</button>
+                </div>
+                <div class="p-6 overflow-y-auto flex-1" id="os-file-list"></div>
+            </div>
+        </div>
+
+        <!-- Custom Confirm Modal (For non-blocking confirms) -->
+        <div id="confirm-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden items-center justify-center z-[60]">
+            <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm mx-4 p-6 text-center">
+                <div class="w-16 h-16 rounded-full bg-red-100 text-red-500 flex items-center justify-center mx-auto mb-4 text-2xl">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <h3 class="text-lg font-bold text-slate-800 mb-2">Emin misiniz?</h3>
+                <p id="confirm-message" class="text-sm text-slate-500 mb-6">Bu işlemi geri alamazsınız.</p>
+                <div class="flex justify-center space-x-3">
+                    <button onclick="closeConfirmModal()" class="px-5 py-2.5 text-sm font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-lg flex-1">İptal</button>
+                    <button id="confirm-yes-btn" class="px-5 py-2.5 text-sm font-medium text-white bg-red-500 hover:bg-red-600 rounded-lg flex-1">Sil</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="toast-container"></div>
+
+        <script>
+            let appData = { students: [], assignments: [], exams: [] };
+            let currentView = 'dashboard';
+            const STORAGE_KEY = 'ots_data_v3';
+            let mapInstance = null;
+            let mapMarker = null;
+
+            function initApp() { 
+                const stored = localStorage.getItem(STORAGE_KEY);
+                if(stored) { try { appData = JSON.parse(stored); }catch(e){} }
+                navigate('dashboard');
+            }
+
+            function saveDataLocally() {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
+            }
+
+            // Custom Confirm Dialog Box
+            let confirmAction = null;
+            function customConfirm(message, action) {
+                document.getElementById('confirm-message').textContent = message;
+                confirmAction = action;
+                document.getElementById('confirm-modal').classList.remove('hidden');
+                document.getElementById('confirm-modal').classList.add('flex');
+            }
+            function closeConfirmModal() {
+                document.getElementById('confirm-modal').classList.add('hidden');
+                document.getElementById('confirm-modal').classList.remove('flex');
+                confirmAction = null;
+            }
+            document.getElementById('confirm-yes-btn').addEventListener('click', function() {
+                if(confirmAction) confirmAction();
+                closeConfirmModal();
+            });
+
+            function navigate(view) { 
+                currentView = view;
+                document.getElementById('page-title').textContent = view === 'dashboard' ? 'Gösterge Paneli' : 'Öğrenciler'; 
+                if(view==='dashboard') renderDashboard(); else renderStudents(); 
+            }
+
+            function renderDashboard() { 
+                document.getElementById('content-area').innerHTML = `
+                    <div class="p-6 bg-white rounded-xl shadow-sm border">
+                        <h3 class="text-lg font-bold mb-4">ÖTS Öğrenci Takip Sistemine Hoş Geldiniz.</h3>
+                        <p class="text-slate-600 mb-4 text-sm">Öğrencilerinizi, ödevlerini ve deneme grafiklerini buradan kolayca takip edebilirsiniz.</p>
+                        <button onclick="openStudentModal()" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 transition text-white rounded-lg font-medium shadow-md">
+                            <i class="fa-solid fa-plus mr-1"></i> Yeni Öğrenci Ekle
+                        </button>
+                    </div>
+                `; 
+            }
+
+            function renderStudents() {
+                var html = `
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-lg font-bold">Öğrenci Listesi</h3>
+                        <button onclick="openStudentModal()" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-500 font-medium">Yeni Öğrenci</button>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                `;
+                if(appData.students.length === 0) {
+                    html += `<div class="col-span-full text-center py-10 bg-white rounded-xl border border-dashed text-slate-500">Kayıtlı öğrenci bulunamadı.</div>`;
+                } else {
+                    appData.students.forEach(s => {
+                        html += `
+                            <div class="p-5 bg-white rounded-xl border shadow-sm flex flex-col justify-between">
+                                <div>
+                                    <h4 class="font-bold text-slate-800 text-lg">${s.name}</h4>
+                                    <p class="text-sm text-slate-500 mb-3">${s.grade} - ${s.school || 'Okul Belirtilmedi'}</p>
+                                    <p class="text-xs text-slate-600">Veli: ${s.parentName || 'Girilmedi'}</p>
+                                    <p class="text-xs text-slate-600">Tel: ${s.parentPhone || 'Girilmedi'}</p>
+                                </div>
+                                <div class="mt-4 pt-3 border-t flex justify-end gap-2">
+                                    <button class="px-3 py-1.5 text-xs bg-red-50 text-red-600 hover:bg-red-100 rounded-md font-medium" onclick="deleteStudent('${s.id}')">Sil</button>
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+                html += `</div>`;
+                document.getElementById('content-area').innerHTML = html;
+            }
+
+            function deleteStudent(id) {
+                customConfirm('Bu öğrenciyi ve tüm kayıtlarını silmek istediğinize emin misiniz?', function() {
+                    appData.students = appData.students.filter(s => s.id !== id);
+                    saveDataLocally();
+                    renderStudents();
+                    showToast('Öğrenci başarıyla silindi.', 'success');
+                });
+            }
+
+            function openStudentModal() { 
+                document.getElementById('student-form').reset(); 
+                document.getElementById('student-id').value=''; 
+                document.getElementById('student-modal').classList.remove('hidden'); 
+                document.getElementById('student-modal').classList.add('flex'); 
+                setTimeout(initMap, 200);
+            }
+
+            function closeModal(id) { 
+                document.getElementById(id).classList.add('hidden'); 
+            }
+
+            function handleStudentSubmit(e) { 
+                e.preventDefault(); 
+                var newStudent = {
+                    id: 'st_' + Date.now(), 
+                    name: document.getElementById('student-name').value, 
+                    grade: document.getElementById('student-grade').value,
+                    school: document.getElementById('student-school').value,
+                    parentName: document.getElementById('student-parent-name').value,
+                    parentPhone: document.getElementById('student-parent-phone').value,
+                    location: {
+                        lat: document.getElementById('student-lat').value,
+                        lng: document.getElementById('student-lng').value
+                    }
+                };
+                appData.students.push(newStudent); 
+                saveDataLocally();
+                closeModal('student-modal'); 
+                showToast('Öğrenci başarıyla kaydedildi','success'); 
+                renderStudents();
+            }
+
+            function initMap() {
+                if(!mapInstance) {
+                    mapInstance = L.map('map').setView([41.0082, 28.9784], 10);
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mapInstance);
+                    mapInstance.on('click', function(e) {
+                        if (mapMarker) { mapMarker.setLatLng(e.latlng); } 
+                        else { mapMarker = L.marker(e.latlng).addTo(mapInstance); }
+                        document.getElementById('student-lat').value = e.latlng.lat;
+                        document.getElementById('student-lng').value = e.latlng.lng;
+                    });
+                }
+                mapInstance.invalidateSize();
+            }
+
+            function exportData() {
+                try {
+                    const dataStr = JSON.stringify(appData, null, 2);
+                    const today = new Date();
+                    const dateStr = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
+                    const filename = `OTS_Veri_Yedegi_${dateStr}.json`;
+                    
+                    const base64Data = btoa(unescape(encodeURIComponent(dataStr)));
+                    const dataUrl = `data:application/json;base64,${base64Data}`;
+
+                    if (window.parent && window.parent.saveFileToOS) {
+                        window.parent.saveFileToOS(filename, 'application/json', dataStr.length, dataUrl);
+                        showToast("Yedek başarıyla bksOS Dosyalar'a kaydedildi!", "success");
+                    } else {
+                        showToast("bksOS dosya sistemine ulaşılamadı.", "error");
+                    }
+                } catch (error) {
+                    showToast("Dışa aktarma hatası.", "error");
+                }
+            }
+
+            function openOSFilePickerModal() {
+                const listContainer = document.getElementById('os-file-list');
+                if (window.parent && window.parent.getOSFiles) {
+                    const files = window.parent.getOSFiles();
+                    const jsonFiles = files.filter(f => f.name.endsWith('.json') || f.type === 'application/json');
+                    
+                    if (jsonFiles.length === 0) {
+                        listContainer.innerHTML = '<div class="text-center text-slate-500 py-8">Yedek dosyası bulunamadı.</div>';
+                    } else {
+                        let html = '<div class="space-y-2">';
+                        jsonFiles.forEach(f => {
+                            html += `
+                            <button onclick="importFromOSFile('${f.id}')" class="w-full text-left p-3 rounded-lg border hover:bg-indigo-50 hover:border-indigo-300 transition flex items-center">
+                                <div class="flex-1 truncate font-medium text-slate-700">${f.name}</div>
+                            </button>
+                            `;
+                        });
+                        html += '</div>';
+                        listContainer.innerHTML = html;
+                    }
+                }
+                document.getElementById('os-file-picker-modal').classList.remove('hidden');
+                document.getElementById('os-file-picker-modal').classList.add('flex');
+            }
+
+            function importFromOSFile(fileId) {
+                if (window.parent && window.parent.getOSFiles) {
+                    const file = window.parent.getOSFiles().find(f => f.id === fileId);
+                    if (file) {
+                        try {
+                            const base64 = file.data.split(',')[1];
+                            const jsonString = decodeURIComponent(escape(atob(base64)));
+                            const importedData = JSON.parse(jsonString);
+                            if (importedData && importedData.students) {
+                                appData = importedData;
+                                saveDataLocally();
+                                showToast("Veriler bksOS'tan yüklendi!", "success");
+                                closeModal('os-file-picker-modal');
+                                navigate(currentView); 
+                            }
+                        } catch (e) { showToast("Dosya okuma hatası.", "error"); }
+                    }
+                }
+            }
+
+            function showToast(message, type = 'success') {
+                const container = document.getElementById('toast-container');
+                const toast = document.createElement('div');
+                toast.className = `toast ${type}`;
+                toast.innerHTML = `<span>${message}</span>`;
+                container.appendChild(toast);
+                setTimeout(() => { toast.remove(); }, 3000);
+            }
+
+            window.addEventListener('DOMContentLoaded', initApp);
+        </script>
+    </template>
+
+    <template id="turkscript-head">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Turk-Script Web Derleyicisi</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <style>
+            /* Özel Kaydırma Çubuğu Tasarımı */
+            ::-webkit-scrollbar { width: 10px; height: 10px; }
+            ::-webkit-scrollbar-track { background: #0f172a; border-radius: 6px; }
+            ::-webkit-scrollbar-thumb { background: #334155; border-radius: 6px; border: 2px solid #0f172a; }
+            ::-webkit-scrollbar-thumb:hover { background: #475569; }
+            
+            /* Akordeon Ok Dönüş Animasyonu */
+            details > summary { list-style: none; }
+            details > summary::-webkit-details-marker { display: none; }
+
+            /* Bildirim (Toast) Animasyonları */
+            @keyframes shrinkWidth {
+                0% { width: 100%; }
+                100% { width: 0%; }
+            }
+            @keyframes fadeOutToast {
+                0% { opacity: 1; transform: translateY(0) scale(1); }
+                100% { opacity: 0; transform: translateY(10px) scale(0.95); }
+            }
+            .toast-progress {
+                animation: shrinkWidth 5s linear forwards;
+            }
+            .toast-fadeout {
+                animation: fadeOutToast 0.4s ease-in forwards;
+            }
+        </style>
+    </template>
+    
+    <template id="turkscript-body">
+        <!-- Üst Menü -->
+        <header class="bg-slate-800 p-4 shadow-md flex justify-between items-center z-30 relative shrink-0">
+            <div>
+                <h1 class="text-2xl font-bold text-emerald-400">Turk-Script <span class="text-sm text-slate-400 font-normal">v1.3</span></h1>
+                <p class="text-xs text-slate-400 mt-1">Türkçe Programlama Dili</p>
+            </div>
+            <div class="flex gap-3">
+                <button onclick="yardimModaliAc()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200 flex items-center gap-2 shadow-lg text-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                        <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
+                    </svg>
+                    Yardım
+                </button>
+                <button onclick="koduKaydet()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200 flex items-center gap-2 shadow-lg text-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                        <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                    </svg>
+                    Uygulama Olarak Kaydet
+                </button>
+                <button id="btnCalistir" onclick="calistir()" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2 px-6 rounded-lg transition duration-200 flex items-center gap-2 shadow-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
+                    </svg>
+                    Kodu Çalıştır
+                </button>
+            </div>
+        </header>
+
+        <!-- Ana İçerik: Editör ve Çıktı Ekranları -->
+        <main class="flex-1 flex flex-col md:flex-row gap-4 p-4 relative z-0 h-full overflow-hidden">
+            
+            <!-- Sol: Kod Yazma Alanı -->
+            <div class="flex-1 flex flex-col bg-slate-800 rounded-xl border border-slate-700 overflow-hidden shadow-inner flex min-w-[50%] h-full">
+                <div class="bg-slate-900 px-4 py-2 border-b border-slate-700 text-sm text-slate-400 flex justify-between z-30 shrink-0">
+                    <span>main.ts (Turk-Script)</span>
+                </div>
+                
+                <div class="relative flex-1 flex overflow-hidden bg-slate-900">
+                    <div id="satirNumaralari" class="w-10 bg-slate-800 border-r border-slate-700 text-slate-500 font-mono text-right py-4 pr-2 select-none overflow-hidden z-20 text-sm leading-6"></div>
+                    <div class="relative flex-1 overflow-hidden">
+                        <div id="vurguKatmani" class="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+                            <div id="vurguIcerik" class="relative w-full text-sm leading-6"></div>
+                        </div>
+                        <textarea id="kodEditoru" wrap="off" class="absolute inset-0 w-full h-full bg-transparent text-emerald-300 p-4 font-mono text-sm leading-6 outline-none resize-none z-10" style="tab-size: 4;" oninput="editorGuncelle()" onscroll="scrollSenkronizeEt()" spellcheck="false">
+konsoluTemizle();
+yesilYazdir("=== Yapay Zeka Asistanına Hoş Geldin ===");
+
+degisken calisiyor = dogru;
+
+surece (calisiyor) {
+    maviYazdir("\nNe yapmak istersin?");
+    yazdir("1- Matematik  2- Metin  3- Liste  4- Rastgele  5- Tarih  6- Sohbet  7- Çıkış");
+
+    sariYazdir("Seçim yap: ")cevapGirisi;
+    degisken secim = sayiyaCevir(girilenCevap);
+
+    eger (secim == 1) {
+        sariYazdir("1. sayı: ")cevapGirisi;
+        degisken a = sayiyaCevir(girilenCevap);
+        sariYazdir("2. sayı: ")cevapGirisi;
+        degisken b = sayiyaCevir(girilenCevap);
+
+        yazdir("1- Topla  2- Çıkar  3- Çarp  4- Böl");
+        sariYazdir("Seç: ")cevapGirisi;
+        degisken s = sayiyaCevir(girilenCevap);
+
+        eger (s == 1) { yesilYazdir("Sonuç: " + topla(a,b)); }
+        degilse eger (s == 2) { yesilYazdir("Sonuç: " + cikar(a,b)); }
+        degilse eger (s == 3) { yesilYazdir("Sonuç: " + carp(a,b)); }
+        degilse eger (s == 4) {
+            eger (b == 0) { kirmiziYazdir("0'a bölünemez!"); }
+            degilse { yesilYazdir("Sonuç: " + bol(a,b)); }
+        } degilse { kirmiziYazdir("Hatalı seçim"); }
+    }
+    degilse eger (secim == 2) {
+        sariYazdir("Metin gir: ")cevapGirisi;
+        degisken m = girilenCevap;
+        yazdir("1- Büyük harf  2- Küçük harf  3- Temizle");
+        sariYazdir("Seç: ")cevapGirisi;
+        degisken s = sayiyaCevir(girilenCevap);
+
+        eger (s == 1) { yazdir(metniBuyut(m)); }
+        degilse eger (s == 2) { yazdir(metniKucult(m)); }
+        degilse eger (s == 3) { yazdir(bosluklariTemizle(m)); }
+        degilse { kirmiziYazdir("Geçersiz seçim!"); }
+    }
+    degilse eger (secim == 3) {
+        degisken liste = [];
+        sariYazdir("Kaç eleman gireceksin? ")cevapGirisi;
+        degisken adet = sayiyaCevir(girilenCevap);
+        degisken i = 0;
+        surece (i < adet) {
+            sariYazdir("Eleman gir: ")cevapGirisi;
+            listeyeEkle(liste, girilenCevap);
+            i = topla(i,1);
+        }
+        listeSirala(liste);
+        yesilYazdir("Sıralı Liste: " + listeyiBirlestir(liste, ", "));
+    }
+    degilse eger (secim == 4) {
+        sariYazdir("Min: ")cevapGirisi;
+        degisken min = sayiyaCevir(girilenCevap);
+        sariYazdir("Max: ")cevapGirisi;
+        degisken max = sayiyaCevir(girilenCevap);
+        yesilYazdir("Rastgele sayı: " + rastgeleTamSayi(min, max));
+    }
+    degilse eger (secim == 5) {
+        yesilYazdir("Tarih: " + suAnkiTarih() + " | Saat: " + saatGetir() + ":" + dakikaGetir());
+    }
+    degilse eger (secim == 6) {
+        sariYazdir("Bir şey yaz: ")cevapGirisi;
+        degisken mesaj = metniKucult(girilenCevap);
+        eger (metinArama(mesaj, "merhaba") != -1) { yesilYazdir("Merhaba! Nasılsın?"); }
+        degilse eger (metinArama(mesaj, "nasılsın") != -1) { yesilYazdir("Ben iyiyim 🙂"); }
+        degilse eger (metinArama(mesaj, "adın") != -1) { yesilYazdir("Ben Turk-Script Asistanıyım"); }
+        degilse { sariYazdir("Bunu henüz öğrenmedim 😅"); }
+    }
+    degilse eger (secim == 7) {
+        kirmiziYazdir("Asistan kapatılıyor...");
+        calisiyor = yanlis;
+    }
+    degilse {
+        kirmiziYazdir("Geçersiz seçim!");
+    }
+}
+</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sağ: Konsol Alanı -->
+            <div class="flex-1 flex flex-col min-w-[300px] h-full overflow-hidden">
+                <div class="flex flex-col bg-black rounded-xl border border-slate-700 overflow-hidden shadow-inner relative flex-1" id="konsolKonteyner">
+                    <div class="bg-slate-900 px-4 py-2 border-b border-slate-700 text-sm text-slate-400 shrink-0 flex justify-between items-center z-20">
+                        <span>Konsol Çıktısı</span>
+                        <label class="cursor-pointer bg-slate-700 hover:bg-slate-600 text-emerald-400 font-bold px-3 py-1.5 rounded-md text-xs transition duration-200 flex items-center gap-2 shadow-md border border-slate-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                              <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+                              <path d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2zM14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1zM2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1h-10z"/>
+                            </svg>
+                            Arka Plan Ekle
+                            <input type="file" id="bgUploader" class="hidden" accept="image/*">
+                        </label>
+                    </div>
+                    
+                    <!-- Görselin üzerine gelen yarı saydam karartma katmanı -->
+                    <div id="konsolOverlay" class="absolute inset-0 bg-black/60 hidden pointer-events-none z-0 mt-10"></div>
+                    
+                    <div id="konsolCiktisi" class="flex-1 w-full p-4 overflow-y-auto text-slate-300 whitespace-pre-wrap font-mono text-sm leading-relaxed relative z-10"></div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Bildirim (Toast) Konteyner -->
+        <div id="toastKonteyner" class="fixed bottom-6 right-6 flex flex-col gap-3 z-[10000]"></div>
+
+        <!-- Yardım Modalı -->
+        <div id="yardimModali" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
+            <div class="bg-slate-800 rounded-xl border border-slate-600 w-11/12 max-w-7xl h-[85vh] flex flex-col overflow-hidden shadow-2xl transform scale-95 transition-transform duration-300" id="yardimKutusu">
+                <!-- Modal Başlık -->
+                <div class="bg-slate-900 px-6 py-4 border-b border-slate-700 flex justify-between items-center shrink-0">
+                    <h2 class="text-xl font-bold text-emerald-400 flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/></svg>
+                        Turk-Script Yardım Merkezi
+                    </h2>
+                    <button onclick="yardimModaliKapat()" class="text-slate-400 hover:text-red-400 transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                    </button>
+                </div>
+                <!-- Modal İçerik -->
+                <div class="flex flex-1 overflow-hidden">
+                    <!-- Sol Menü -->
+                    <div class="w-1/3 md:w-1/4 bg-slate-800 border-r border-slate-700 p-4 flex flex-col gap-2 overflow-y-auto shrink-0">
+                        <button onclick="yardimSekmeDegistir('komutlar')" id="btn-komutlar" class="yardim-sekme-btn text-left px-4 py-3 rounded-lg bg-purple-600 text-white font-bold transition">Komut Listesi</button>
+                        <button onclick="yardimSekmeDegistir('sss')" id="btn-sss" class="yardim-sekme-btn text-left px-4 py-3 rounded-lg text-slate-300 hover:bg-slate-700 transition">Sıkça Sorulan Sorular</button>
+                        <button onclick="yardimSekmeDegistir('yapayzeka')" id="btn-yapayzeka" class="yardim-sekme-btn text-left px-4 py-3 rounded-lg text-slate-300 hover:bg-slate-700 transition">Yapay Zekaya Kod Yazdırma</button>
+                        <button onclick="yardimSekmeDegistir('hakkimizda')" id="btn-hakkimizda" class="yardim-sekme-btn text-left px-4 py-3 rounded-lg text-slate-300 hover:bg-slate-700 transition">Hakkımızda</button>
+                        <button onclick="yardimSekmeDegistir('iletisim')" id="btn-iletisim" class="yardim-sekme-btn text-left px-4 py-3 rounded-lg text-slate-300 hover:bg-slate-700 transition">Bizimle İletişime Geçin</button>
+                    </div>
+                    <!-- Sağ İçerik Alanı -->
+                    <div class="flex-1 bg-slate-900 p-6 overflow-y-auto text-slate-300 relative">
+                        
+                        <!-- Komut Listesi (Tablo Halinde) -->
+                        <div id="sekme-komutlar" class="yardim-sekme block">
+                            <h3 class="text-2xl font-bold text-purple-400 mb-4 border-b border-slate-700 pb-2">Turk-Script Komut Tablosu</h3>
+                            <div class="overflow-x-auto rounded-lg border border-slate-700">
+                                <table class="w-full text-left border-collapse min-w-[750px]">
+                                    <thead>
+                                        <tr class="bg-slate-800 text-purple-300 text-sm uppercase tracking-wider">
+                                            <th class="p-4 border-b border-slate-700 w-1/4">Komut / Yapı</th>
+                                            <th class="p-4 border-b border-slate-700 w-2/4">Görevi</th>
+                                            <th class="p-4 border-b border-slate-700 w-1/4">Örnek Kullanım</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-sm divide-y divide-slate-700/50">
+                                        <tr class="bg-slate-800/80"><td colspan="3" class="p-2 text-center text-xs text-slate-400 uppercase font-bold tracking-widest">Çıktı ve Etkileşim İşlemleri</td></tr>
+                                        <tr class="hover:bg-slate-800/40">
+                                            <td class="p-4 font-mono text-emerald-300">yazdir(metin)</td>
+                                            <td class="p-4">Konsola standart renkte çıktı verir.</td>
+                                            <td class="p-4 font-mono text-slate-400">yazdir("Merhaba")</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-800/40">
+                                            <td class="p-4 font-mono text-emerald-300">[renk]Yazdir(metin)</td>
+                                            <td class="p-4">Renkli çıktı verir. Renkler: yesil, kirmizi, sari, mavi.</td>
+                                            <td class="p-4 font-mono text-slate-400">yesilYazdir("Başarılı")</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-800/40">
+                                            <td class="p-4 font-mono text-emerald-300">cevapGirisi</td>
+                                            <td class="p-4">Girdi ister. Sonuç <code class="text-purple-300">girilenCevap</code> değişkenine atanır.</td>
+                                            <td class="p-4 font-mono text-slate-400">yazdir("Ad?")cevapGirisi;</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-800/40">
+                                            <td class="p-4 font-mono text-emerald-300">konsoluTemizle()</td>
+                                            <td class="p-4">Konsoldaki tüm geçmiş yazıları siler.</td>
+                                            <td class="p-4 font-mono text-slate-400">konsoluTemizle()</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-800/40">
+                                            <td class="p-4 font-mono text-emerald-300">uyariPenceresi(metin)</td>
+                                            <td class="p-4">Tarayıcıda ekrana çıkan bir bilgilendirme bildirimi (toast) açar.</td>
+                                            <td class="p-4 font-mono text-slate-400">uyariPenceresi("Hata!")</td>
+                                        </tr>
+
+                                        <tr class="bg-slate-800/80"><td colspan="3" class="p-2 text-center text-xs text-slate-400 uppercase font-bold tracking-widest">Dizi (Liste) İşlemleri</td></tr>
+                                        <tr class="hover:bg-slate-800/40">
+                                            <td class="p-4 font-mono text-emerald-300">listeSirala(liste)</td>
+                                            <td class="p-4">Listeyi alfabetik veya sayısal olarak sıralar.</td>
+                                            <td class="p-4 font-mono text-slate-400">listeSirala(sayilar)</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-800/40">
+                                            <td class="p-4 font-mono text-emerald-300">rastgeleEleman(liste)</td>
+                                            <td class="p-4">Listeden rastgele bir öğe seçer.</td>
+                                            <td class="p-4 font-mono text-slate-400">rastgeleEleman(liste)</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-800/40">
+                                            <td class="p-4 font-mono text-emerald-300">listeyeEkle(liste, deger)</td>
+                                            <td class="p-4">Dizinin sonuna yeni bir eleman ekler (push).</td>
+                                            <td class="p-4 font-mono text-slate-400">listeyeEkle(dizi, 5)</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-800/40">
+                                            <td class="p-4 font-mono text-emerald-300">sondanSil(liste)</td>
+                                            <td class="p-4">Dizinin sonundaki elemanı siler (pop).</td>
+                                            <td class="p-4 font-mono text-slate-400">sondanSil(dizi)</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-800/40">
+                                            <td class="p-4 font-mono text-emerald-300">basaEkle(liste, deger)</td>
+                                            <td class="p-4">Dizinin en başına yeni bir eleman ekler (unshift).</td>
+                                            <td class="p-4 font-mono text-slate-400">basaEkle(dizi, 2)</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-800/40">
+                                            <td class="p-4 font-mono text-emerald-300">bastanSil(liste)</td>
+                                            <td class="p-4">Dizinin başındaki elemanı siler (shift).</td>
+                                            <td class="p-4 font-mono text-slate-400">bastanSil(dizi)</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-800/40">
+                                            <td class="p-4 font-mono text-emerald-300">listeyiBirlestir(liste, ayrac)</td>
+                                            <td class="p-4">Dizideki tüm elemanları arasına ayraç koyarak tek metin yapar (join).</td>
+                                            <td class="p-4 font-mono text-slate-400">listeyiBirlestir(dizi, "-")</td>
+                                        </tr>
+                                        
+                                        <tr class="bg-slate-800/80"><td colspan="3" class="p-2 text-center text-xs text-slate-400 uppercase font-bold tracking-widest">Metin (String) İşlemleri</td></tr>
+                                        <tr class="hover:bg-slate-800/40">
+                                            <td class="p-4 font-mono text-emerald-300">metinDegistir(m, e, y)</td>
+                                            <td class="p-4">Metin içindeki bir parçayı diğeriyle değiştirir.</td>
+                                            <td class="p-4 font-mono text-slate-400">metinDegistir("Aa", "a", "o")</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-800/40">
+                                            <td class="p-4 font-mono text-emerald-300">karakterGetir(m, index)</td>
+                                            <td class="p-4">Metnin belirtilen sıradaki harfini bulur (charAt).</td>
+                                            <td class="p-4 font-mono text-slate-400">karakterGetir("Ali", 1)</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-800/40">
+                                            <td class="p-4 font-mono text-emerald-300">metinArama(m, aranan)</td>
+                                            <td class="p-4">Metnin içinde kelimeyi arar, bulursa kaçıncı sırada olduğunu verir (indexOf).</td>
+                                            <td class="p-4 font-mono text-slate-400">metinArama("Ali", "l")</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-800/40">
+                                            <td class="p-4 font-mono text-emerald-300">bosluklariTemizle(m)</td>
+                                            <td class="p-4">Metnin sağındaki ve solundaki gereksiz boşlukları siler (trim).</td>
+                                            <td class="p-4 font-mono text-slate-400">bosluklariTemizle(" a ")</td>
+                                        </tr>
+
+                                        <tr class="bg-slate-800/80"><td colspan="3" class="p-2 text-center text-xs text-slate-400 uppercase font-bold tracking-widest">Matematiksel İşlemler</td></tr>
+                                        <tr class="hover:bg-slate-800/40">
+                                            <td class="p-4 font-mono text-emerald-300">topla, cikar, carp, bol</td>
+                                            <td class="p-4">İki sayı arasında temel 4 işlem. Sıfıra bölme korumalı.</td>
+                                            <td class="p-4 font-mono text-slate-400">degisken s = carp(5, 4)</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-800/40">
+                                            <td class="p-4 font-mono text-emerald-300">yuvarla, yukariYuvarla, asagiYuvarla</td>
+                                            <td class="p-4">Ondalıklı sayıları tam sayıya çevirmek/yuvarlamak için.</td>
+                                            <td class="p-4 font-mono text-slate-400">yukariYuvarla(4.2)</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-800/40">
+                                            <td class="p-4 font-mono text-emerald-300">karekok, kupkok, mutlak, ustunuAl</td>
+                                            <td class="p-4">Gelişmiş matematik ve geometri formülleri.</td>
+                                            <td class="p-4 font-mono text-slate-400">karekok(16)</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-800/40">
+                                            <td class="p-4 font-mono text-emerald-300">sinus, kosinus, tanjant</td>
+                                            <td class="p-4">Sayının trigonometrik değerini bulur.</td>
+                                            <td class="p-4 font-mono text-slate-400">sinus(90)</td>
+                                        </tr>
+
+                                        <tr class="bg-slate-800/80"><td colspan="3" class="p-2 text-center text-xs text-slate-400 uppercase font-bold tracking-widest">Zaman, Saat ve Genel İşlemler</td></tr>
+                                        <tr class="hover:bg-slate-800/40">
+                                            <td class="p-4 font-mono text-emerald-300">suAnkiTarih()</td>
+                                            <td class="p-4">Güncel tarih ve saati metin olarak verir.</td>
+                                            <td class="p-4 font-mono text-slate-400">yazdir(suAnkiTarih())</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-800/40">
+                                            <td class="p-4 font-mono text-emerald-300">yilGetir, ayGetir, gunGetir, saatGetir, dakikaGetir</td>
+                                            <td class="p-4">Güncel zamanın istenen spesifik bölgesini rakam olarak döndürür.</td>
+                                            <td class="p-4 font-mono text-slate-400">yazdir(yilGetir())</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-800/40">
+                                            <td class="p-4 font-mono text-emerald-300">bekle(saniye)</td>
+                                            <td class="p-4">Sistemi belirtilen saniye boyunca duraklatır (Asenkron).</td>
+                                            <td class="p-4 font-mono text-slate-400">bekle(2.5)</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-800/40">
+                                            <td class="p-4 font-mono text-emerald-300">zamanlayici(islem, saniye)</td>
+                                            <td class="p-4">İçine yazılan işlemi belirtilen saniye geçtikten sonra bir kere çalıştırır.</td>
+                                            <td class="p-4 font-mono text-slate-400">zamanlayici(fonk, 2)</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-800/40">
+                                            <td class="p-4 font-mono text-emerald-300">aralikliZamanlayici(islem, sn)</td>
+                                            <td class="p-4">İçine yazılan işlemi iptal edilene kadar belirtilen sürede bir tekrarlar.</td>
+                                            <td class="p-4 font-mono text-slate-400">aralikliZamanlayici(fonk, 1)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- S.S.S. (Genişletilmiş) -->
+                        <div id="sekme-sss" class="yardim-sekme hidden">
+                            <h3 class="text-2xl font-bold text-purple-400 mb-6 border-b border-slate-700 pb-2">Sıkça Sorulan Sorular</h3>
+                            <div class="space-y-3">
+                                <details class="group bg-slate-800 rounded-lg border border-slate-700 cursor-pointer overflow-hidden">
+                                    <summary class="flex justify-between items-center font-bold text-emerald-300 p-4 outline-none hover:bg-slate-700/50 transition">
+                                        Turk-Script Nedir ve Ne İşe Yarar?
+                                        <svg class="w-5 h-5 transition-transform duration-300 group-open:rotate-180 text-slate-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                                    </summary>
+                                    <div class="px-4 pb-4 text-sm text-slate-300 border-t border-slate-700/50 pt-3">
+                                        Turk-Script, İngilizce bilmeyen veya kodlamaya yeni başlayanların, programlama mantığını (algoritmayı) Türkçe kelimeler kullanarak hızlıca öğrenmesi için geliştirilmiş, JavaScript tabanlı özel bir dildir.
+                                    </div>
+                                </details>
+
+                                <details class="group bg-slate-800 rounded-lg border border-slate-700 cursor-pointer overflow-hidden">
+                                    <summary class="flex justify-between items-center font-bold text-emerald-300 p-4 outline-none hover:bg-slate-700/50 transition">
+                                        Dizi (Liste) tanımlarken nelere dikkat etmeliyim?
+                                        <svg class="w-5 h-5 transition-transform duration-300 group-open:rotate-180 text-slate-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                                    </summary>
+                                    <div class="px-4 pb-4 text-sm text-slate-300 border-t border-slate-700/50 pt-3">
+                                        Diziler köşeli parantez <code class="text-white bg-slate-700 px-1 rounded">[ ]</code> içine yazılır ve elemanlar virgülle ayrılır. Örn: <code class="text-emerald-400">degisken liste = ["Ali", "Veli"];</code>. Listenin ilk elemanına <code class="text-emerald-400">liste[0]</code> diyerek ulaşabilirsiniz.
+                                    </div>
+                                </details>
+                                
+                                <details class="group bg-slate-800 rounded-lg border border-slate-700 cursor-pointer overflow-hidden">
+                                    <summary class="flex justify-between items-center font-bold text-emerald-300 p-4 outline-none hover:bg-slate-700/50 transition">
+                                        Kodumu kaydettikten sonra nasıl çalıştırırım?
+                                        <svg class="w-5 h-5 transition-transform duration-300 group-open:rotate-180 text-slate-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                                    </summary>
+                                    <div class="px-4 pb-4 text-sm text-slate-300 border-t border-slate-700/50 pt-3">
+                                        "Uygulama Olarak Kaydet" butonuna bastığınızda kodunuz bir <b>.html</b> dosyası olarak iner. Bu dosyaya çift tıklayıp Chrome veya Firefox gibi herhangi bir internet tarayıcısında açtığınızda programınız arayüzsüz bir şekilde direkt tam ekran olarak çalışır.
+                                    </div>
+                                </details>
+
+                                <details class="group bg-slate-800 rounded-lg border border-slate-700 cursor-pointer overflow-hidden">
+                                    <summary class="flex justify-between items-center font-bold text-emerald-300 p-4 outline-none hover:bg-slate-700/50 transition">
+                                        Hata aldığımda sistemi nasıl okumalıyım?
+                                        <svg class="w-5 h-5 transition-transform duration-300 group-open:rotate-180 text-slate-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                                    </summary>
+                                    <div class="px-4 pb-4 text-sm text-slate-300 border-t border-slate-700/50 pt-3">
+                                        Turk-Script'in çok akıllı ve kusursuz bir hata denetleyicisi (V8 destekli) vardır. Bir hata yaparsanız, hatalı satır kod editöründe <span class="text-red-400">kalın kırmızı bir çizgiyle vurgulanır</span> ve sağ taraftaki konsol ekranında bu hatanın hangi satırda olduğu tam açıklamasıyla belirtilir. O satıra gidip eksik parantezi veya kelimeyi düzeltmeniz yeterlidir.
+                                    </div>
+                                </details>
+
+                                <details class="group bg-slate-800 rounded-lg border border-slate-700 cursor-pointer overflow-hidden">
+                                    <summary class="flex justify-between items-center font-bold text-emerald-300 p-4 outline-none hover:bg-slate-700/50 transition">
+                                        "cevapGirisi" komutu ile klavyeden veri nasıl alınır?
+                                        <svg class="w-5 h-5 transition-transform duration-300 group-open:rotate-180 text-slate-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                                    </summary>
+                                    <div class="px-4 pb-4 text-sm text-slate-300 border-t border-slate-700/50 pt-3">
+                                        Kullanıcıya soru sorup cevap almak için <code class="text-white bg-slate-700 px-1 rounded">yazdir("Soru?")cevapGirisi;</code> kalıbı kullanılır. <code class="text-white bg-slate-700 px-1 rounded">cevapGirisi</code> bir eylem komutudur, programı durdurur ve konsolda bir girdi alanı açar. Kullanıcının klavyeyle yazıp Enter'a bastığı o metin, her zaman otomatik olarak <code class="text-white bg-slate-700 px-1 rounded">girilenCevap</code> isimli sistem değişkeninin içine atılır.
+                                    </div>
+                                </details>
+                            </div>
+                        </div>
+
+                        <!-- Yapay Zekaya Kod Yazdırma -->
+                        <div id="sekme-yapayzeka" class="yardim-sekme hidden">
+                            <h3 class="text-2xl font-bold text-purple-400 mb-4 border-b border-slate-700 pb-2">Yapay Zekaya Kod Yazdırma</h3>
+                            <p class="mb-4 text-emerald-400 font-bold">Aşağıdaki şablonu kopyalayın. <span class="text-yellow-400">Köşeli parantez içindeki yerleri kendi isteğinize göre düzenleyebilirsiniz.</span></p>
+                            
+                            <div class="relative bg-black p-5 rounded-lg border border-slate-600 font-mono text-slate-300 whitespace-pre-wrap text-sm leading-relaxed shadow-inner">
+                                <button onclick="promptKopyala()" class="absolute top-3 right-3 bg-emerald-600 hover:bg-emerald-500 text-white p-2.5 rounded-lg transition shadow-md flex items-center justify-center" title="Kopyala">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
+                                </button>
+                                <textarea id="gizliPrompt" class="hidden">Sen bir Turk-Script uzmanısın. Turk-Script, JavaScript altyapısını kullanan ancak standart JS metotlarının KESİNLİKLE YASAK OLDUĞU, sadece özel Türkçe komutlarla yazılması gereken bir dildir. 
+
+Standart JS metotlarını (Math.*, arr.push, str.replace, console.log vb.) KESİNLİKLE KULLANAMAZSIN. Sadece aşağıdaki kurallara ve komut listesine uymak zorundasın.
+
+1. TEMEL YAPILAR (İngilizce karşılıkları YASAKTIR):
+- 'let' yerine 'degisken', 'const' yerine 'sabit'.
+- 'true' yerine 'dogru', 'false' yerine 'yanlis'.
+- '&&' yerine 've', '||' yerine 'veya'.
+- 'if' yerine 'eger', 'else' yerine 'degilse', 'else if' yerine 'degilse eger'.
+- 'while' yerine 'surece', 'for' yerine 'dongu'.
+
+2. EKRAN ÇIKTISI VE GİRDİ:
+- console.log KULLANMA. Çıktı için SADECE: yazdir(m), yesilYazdir(m), kirmiziYazdir(m), sariYazdir(m), maviYazdir(m).
+- Konsolu temizlemek için: konsoluTemizle()
+- GİRDİ ALMAK İÇİN ÖZEL KURAL: Girdi alırken atama YAPMA. Sadece yazdırma komutunun sonuna bitişik 'cevapGirisi;' yaz. Alınan cevap otomatik olarak 'girilenCevap' adlı sistemsel değişkene atanır.
+DOĞRU KULLANIM: sariYazdir("Adın ne?")cevapGirisi; degisken ad = girilenCevap;
+- Bildirim: uyariPenceresi(m)
+
+3. MATEMATİK (Math.* YASAKTIR, sadece bunları kullan):
+- topla(a,b), cikar(a,b), carp(a,b), bol(a,b)
+- rastgeleTamSayi(min, max), rastgele()
+- karekok(x), kupkok(x), ustunuAl(taban, us)
+- yuvarla(x), yukariYuvarla(x), asagiYuvarla(x), mutlak(x)
+- sinus(x), kosinus(x), tanjant(x)
+- enBuyuk(a,b,...), enKucuk(a,b,...)
+- Tür çeviriciler: sayiyaCevir(m), sayiMi(m)
+
+4. LİSTE VE DİZİLER (arr.push, arr.length vb. YASAKTIR):
+- listeyeEkle(liste, eleman), basaEkle(liste, eleman)
+- sondanSil(liste), bastanSil(liste), listedenSil(liste, index)
+- listeSirala(liste), listeTersCevir(liste), listeBoyutu(liste)
+- rastgeleEleman(liste), listeyiBirlestir(liste, ayrac)
+
+5. METİN İŞLEMLERİ (str.replace, str.trim vb. YASAKTIR):
+- metinDegistir(metin, eski, yeni), metniBuyut(m), metniKucult(m)
+- karakterGetir(m, index), metinArama(m, aranan), bosluklariTemizle(m)
+
+6. ZAMAN VE SAAT:
+- Sistemi asenkron bekletmek için: bekle(saniye)
+- zamanlayici(islemAdi, saniye), aralikliZamanlayici(islemAdi, saniye)
+- suAnkiTarih(), yilGetir(), ayGetir(), gunGetir(), saatGetir(), dakikaGetir()
+
+7. KOD MİMARİSİ (ÇOK ÖNEMLİ!):
+- Kodunu BÖLME. Kendi özel 'islem' (fonksiyon) bloklarını KESİNLİKLE OLUŞTURMA.
+- Çünkü 'cevapGirisi' komutu asenkron çalışır ve normal bir fonksiyonun içine yazılırsa 'await is only valid in async functions' hatası vererek SİSTEMİ ÇÖKERTİR.
+- Tüm kodunu tek bir parça halinde, yukarıdan aşağıya doğru ana akış olarak (prosedürel) yaz!
+
+Lütfen bana [Buraya yapılacak programın türünü ve adını yazın, Örn: Envanterli bir macera oyunu veya Matematik Testi Uygulaması] kodla.
+
+PROJE DETAYLARI VE SENARYO:
+[Buraya uygulamanın senaryosunu, hangi mantıkla ilerleyeceğini, soruları ve oyunu kazanma/kaybetme durumlarını adım adım, çok net bir şekilde açıklayın.]</textarea>
+<span class="text-slate-400">Sen bir Turk-Script uzmanısın. Turk-Script, JavaScript altyapısını kullanan ancak standart JS metotlarının KESİNLİKLE YASAK OLDUĞU, sadece özel Türkçe komutlarla yazılması gereken bir dildir. 
+
+Standart JS metotlarını (Math.*, arr.push, str.replace, console.log vb.) KESİNLİKLE KULLANAMAZSIN. Sadece aşağıdaki kurallara ve komut listesine uymak zorundasın.
+
+1. TEMEL YAPILAR (İngilizce karşılıkları YASAKTIR):
+- 'let' yerine 'degisken', 'const' yerine 'sabit'.
+- 'true' yerine 'dogru', 'false' yerine 'yanlis'.
+- '&&' yerine 've', '||' yerine 'veya'.
+- 'if' yerine 'eger', 'else' yerine 'degilse', 'else if' yerine 'degilse eger'.
+- 'while' yerine 'surece', 'for' yerine 'dongu'.
+
+2. EKRAN ÇIKTISI VE GİRDİ:
+- console.log KULLANMA. Çıktı için SADECE: yazdir(m), yesilYazdir(m), kirmiziYazdir(m), sariYazdir(m), maviYazdir(m).
+- Konsolu temizlemek için: konsoluTemizle()
+- GİRDİ ALMAK İÇİN ÖZEL KURAL: Girdi alırken atama YAPMA. Sadece yazdırma komutunun sonuna bitişik 'cevapGirisi;' yaz. Alınan cevap otomatik olarak 'girilenCevap' adlı sistemsel değişkene atanır.
+DOĞRU KULLANIM: sariYazdir("Adın ne?")cevapGirisi; degisken ad = girilenCevap;
+- Bildirim: uyariPenceresi(m)
+
+3. MATEMATİK (Math.* YASAKTIR, sadece bunları kullan):
+- topla(a,b), cikar(a,b), carp(a,b), bol(a,b)
+- rastgeleTamSayi(min, max), rastgele()
+- karekok(x), kupkok(x), ustunuAl(taban, us)
+- yuvarla(x), yukariYuvarla(x), asagiYuvarla(x), mutlak(x)
+- sinus(x), kosinus(x), tanjant(x)
+- enBuyuk(a,b,...), enKucuk(a,b,...)
+- Tür çeviriciler: sayiyaCevir(m), sayiMi(m)
+
+4. LİSTE VE DİZİLER (arr.push, arr.length vb. YASAKTIR):
+- listeyeEkle(liste, eleman), basaEkle(liste, eleman)
+- sondanSil(liste), bastanSil(liste), listedenSil(liste, index)
+- listeSirala(liste), listeTersCevir(liste), listeBoyutu(liste)
+- rastgeleEleman(liste), listeyiBirlestir(liste, ayrac)
+
+5. METİN İŞLEMLERİ (str.replace, str.trim vb. YASAKTIR):
+- metinDegistir(metin, eski, yeni), metniBuyut(m), metniKucult(m)
+- karakterGetir(m, index), metinArama(m, aranan), bosluklariTemizle(m)
+
+6. ZAMAN VE SAAT:
+- Sistemi asenkron bekletmek için: bekle(saniye)
+- zamanlayici(islemAdi, saniye), aralikliZamanlayici(islemAdi, saniye)
+- suAnkiTarih(), yilGetir(), ayGetir(), gunGetir(), saatGetir(), dakikaGetir()
+
+<span class="text-red-400">7. KOD MİMARİSİ (ÇOK ÖNEMLİ!):
+- Kodunu BÖLME. Kendi özel 'islem' (fonksiyon) bloklarını KESİNLİKLE OLUŞTURMA.
+- Çünkü 'cevapGirisi' komutu asenkron çalışır ve normal bir fonksiyonun içine yazılırsa 'await is only valid in async functions' hatası vererek SİSTEMİ ÇÖKERTİR.
+- Tüm kodunu tek bir parça halinde, yukarıdan aşağıya doğru ana akış olarak (prosedürel) yaz!</span>
+
+Lütfen bana </span><span class="text-yellow-400 font-bold">[Buraya yapılacak programın türünü ve adını yazın, Örn: Envanterli bir macera oyunu veya Matematik Testi Uygulaması]</span><span class="text-slate-400"> kodla.
+
+PROJE DETAYLARI VE SENARYO:
+</span><span class="text-yellow-400 font-bold">[Buraya uygulamanın senaryosunu, hangi mantıkla ilerleyeceğini, soruları ve oyunu kazanma/kaybetme durumlarını adım adım, çok net bir şekilde açıklayın.]</span>
+                        </div>
+                    </div>
+
+                    <!-- Hakkımızda / İletişim (Değişmedi) -->
+                    <div id="sekme-hakkimizda" class="yardim-sekme hidden">
+                        <h3 class="text-2xl font-bold text-purple-400 mb-4 border-b border-slate-700 pb-2">Hakkımızda</h3>
+                        <p class="mb-3">Turk-Script türkçe kod yazmayı sağlayan bir yazılım dilidir. Henüz yeni oluşturulmasına rağmen kullanımı basittir. Her geçen gün daha çok gelişen Turk-Script Yazılım Dilinin bir gün en çok kullanılan yazılım dillerinin arasına girmesini hedefliyoruz. İyi kodlamalar (:</p>
+                    </div>
+
+                    <div id="sekme-iletisim" class="yardim-sekme hidden">
+                        <h3 class="text-2xl font-bold text-purple-400 mb-4 border-b border-slate-700 pb-2">Bizimle İletişime Geçin</h3>
+                        <div class="bg-slate-800 p-4 rounded-lg border border-slate-700 flex items-center gap-4">
+                            <div class="bg-emerald-500/20 p-3 rounded-full text-emerald-400"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/></svg></div>
+                            <div><h4 class="font-bold text-slate-200">E-Posta</h4><p class="text-emerald-400 font-mono">bks.yeren@gmail.com</p></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let mevcutArkaplan = "";
+
+        // Yardım Modalı Fonksiyonları
+        function yardimModaliAc() {
+            const modal = document.getElementById('yardimModali');
+            const kutu = document.getElementById('yardimKutusu');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                kutu.classList.remove('scale-95');
+            }, 10);
+        }
+
+        function yardimModaliKapat() {
+            const modal = document.getElementById('yardimModali');
+            const kutu = document.getElementById('yardimKutusu');
+            modal.classList.add('opacity-0');
+            kutu.classList.add('scale-95');
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        }
+
+        function yardimSekmeDegistir(sekmeId) {
+            document.querySelectorAll('.yardim-sekme').forEach(el => {
+                el.classList.remove('block');
+                el.classList.add('hidden');
+            });
+            document.getElementById('sekme-' + sekmeId).classList.replace('hidden', 'block');
+            document.querySelectorAll('.yardim-sekme-btn').forEach(btn => {
+                btn.classList.remove('bg-purple-600', 'text-white', 'font-bold');
+                btn.classList.add('text-slate-300', 'hover:bg-slate-700');
+            });
+            const aktifBtn = document.getElementById('btn-' + sekmeId);
+            aktifBtn.classList.replace('text-slate-300', 'bg-purple-600');
+            aktifBtn.classList.replace('hover:bg-slate-700', 'text-white');
+            aktifBtn.classList.add('font-bold');
+        }
+        
+        function promptKopyala() {
+            const metin = document.getElementById('gizliPrompt').value;
+            const textarea = document.createElement('textarea');
+            textarea.value = metin;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            bildirimGoster("Metin başarıyla kopyalandı!");
+        }
+
+        function bildirimGoster(mesaj) {
+            const container = document.getElementById('toastKonteyner');
+            const toast = document.createElement('div');
+            toast.className = "relative bg-emerald-600 text-white px-5 py-4 rounded-lg shadow-2xl overflow-hidden flex items-center gap-3 min-w-[280px] transform transition-all duration-300";
+            toast.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>
+                <span class="font-bold text-sm">` + mesaj + `</span>
+                <div class="absolute bottom-0 left-0 h-[4px] bg-white toast-progress"></div>
+            `;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.add('toast-fadeout');
+                setTimeout(() => toast.remove(), 400);
+            }, 5000);
+        }
+
+        // Görsel Yükleme Sistemi
+        document.getElementById('bgUploader').addEventListener('change', function(e) {
+            const dosya = e.target.files[0];
+            if (!dosya) return;
+            const okuyucu = new FileReader();
+            okuyucu.onload = (olay) => {
+                mevcutArkaplan = olay.target.result;
+                const konteyner = document.getElementById('konsolKonteyner');
+                konteyner.style.backgroundImage = `url('${mevcutArkaplan}')`;
+                konteyner.style.backgroundSize = 'cover';
+                konteyner.style.backgroundPosition = 'center';
+                document.getElementById('konsolOverlay').classList.remove('hidden');
+                document.getElementById('konsolCiktisi').style.textShadow = '2px 2px 4px rgba(0,0,0,1), 0px 0px 3px rgba(0,0,0,0.8)';
+            };
+            okuyucu.readAsDataURL(dosya);
+        });
+
+        // KÜTÜPHANE VE ÇEKİRDEK
+        const prefixSatirlari = [
+            "let girilenCevap = null;",
+            "const topla = (a, b) => Number(a) + Number(b);",
+            "const cikar = (a, b) => Number(a) - Number(b);",
+            "const carp = (a, b) => Number(a) * Number(b);",
+            "const bol = (a, b) => { if(Number(b) === 0) throw new Error('Bir sayı sıfıra bölünemez!'); return Number(a) / Number(b); };",
+            "const karekok = Math.sqrt;", 
+            "const yuvarla = Math.round;", 
+            "const mutlak = Math.abs;", 
+            "const ustunuAl = Math.pow;", 
+            "const rastgele = Math.random;",
+            "const rastgeleTamSayi = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;",
+            "const bekle = (saniye) => new Promise(resolve => setTimeout(resolve, saniye * 1000));",
+            "const suAnkiTarih = () => new Date().toLocaleString('tr-TR');",
+            "const listeyeEkle = (liste, eleman) => { liste.push(eleman); return liste; };",
+            "const listedenSil = (liste, index) => { liste.splice(index, 1); return liste; };",
+            "const listeSirala = (liste) => liste.sort();",
+            "const listeTersCevir = (liste) => liste.reverse();",
+            "const listeBoyutu = (l) => l.length;",
+            "const rastgeleEleman = (l) => l[Math.floor(Math.random() * l.length)];",
+            "const metinDegistir = (m, e, y) => String(m).split(e).join(y);",
+            "const metniBuyut = (m) => String(m).toUpperCase();",
+            "const metniKucult = (m) => String(m).toLowerCase();",
+            "const sayiMi = (v) => !isNaN(parseFloat(v)) && isFinite(v);",
+            "const sayiyaCevir = Number;",
+            "const kirmiziYazdir = (m) => { const k = document.getElementById('konsol-icerik') || document.getElementById('konsolCiktisi'); k.innerHTML += '<div class=\"mb-1 text-red-500 font-bold\">> ' + m + '</div>'; k.scrollTop = k.scrollHeight; };",
+            "const yesilYazdir = (m) => { const k = document.getElementById('konsol-icerik') || document.getElementById('konsolCiktisi'); k.innerHTML += '<div class=\"mb-1 text-emerald-500 font-bold\">> ' + m + '</div>'; k.scrollTop = k.scrollHeight; };",
+            "const sariYazdir = (m) => { const k = document.getElementById('konsol-icerik') || document.getElementById('konsolCiktisi'); k.innerHTML += '<div class=\"mb-1 text-yellow-400 font-bold\">> ' + m + '</div>'; k.scrollTop = k.scrollHeight; };",
+            "const maviYazdir = (m) => { const k = document.getElementById('konsol-icerik') || document.getElementById('konsolCiktisi'); k.innerHTML += '<div class=\"mb-1 text-blue-400 font-bold\">> ' + m + '</div>'; k.scrollTop = k.scrollHeight; };",
+            "const enBuyuk = Math.max;", 
+            "const enKucuk = Math.min;",
+            "const konsoluTemizle = () => { const k = document.getElementById('konsol-icerik') || document.getElementById('konsolCiktisi'); k.innerHTML = ''; };",
+            "const uyariPenceresi = (m) => { if(typeof bildirimGoster === 'function') { bildirimGoster(m); } else { alert(m); } };",
+            "const onayPenceresi = (m) => confirm(m);",
+            "const girdiPenceresi = (m) => prompt(m);",
+            "const zamanlayici = (islem, saniye) => setTimeout(islem, saniye * 1000);",
+            "const aralikliZamanlayici = (islem, saniye) => setInterval(islem, saniye * 1000);",
+            "const zamanlayiciIptal = clearTimeout;",
+            "const aralikliZamanlayiciIptal = clearInterval;",
+            "const karakterGetir = (m, i) => String(m).charAt(i);",
+            "const metinArama = (m, a) => String(m).indexOf(a);",
+            "const bosluklariTemizle = (m) => String(m).trim();",
+            "const listeyiBirlestir = (l, a) => Array.isArray(l) ? l.join(a) : '';",
+            "const sondanSil = (l) => Array.isArray(l) ? l.pop() : null;",
+            "const bastanSil = (l) => Array.isArray(l) ? l.shift() : null;",
+            "const basaEkle = (l, e) => { if(Array.isArray(l)) l.unshift(e); return l; };",
+            "const yukariYuvarla = Math.ceil;",
+            "const asagiYuvarla = Math.floor;",
+            "const kupkok = Math.cbrt;",
+            "const sinus = Math.sin;",
+            "const kosinus = Math.cos;",
+            "const tanjant = Math.tan;",
+            "const yilGetir = () => new Date().getFullYear();",
+            "const ayGetir = () => new Date().getMonth() + 1;",
+            "const gunGetir = () => new Date().getDate();",
+            "const saatGetir = () => new Date().getHours();",
+            "const dakikaGetir = () => new Date().getMinutes();"
+        ];
+
+        function editorGuncelle() {
+            const kod = document.getElementById('kodEditoru').value;
+            const satirlar = kod.split('\n').length;
+            let html = '';
+            for (let i = 1; i <= satirlar; i++) html += '<div>' + i + '</div>';
+            document.getElementById('satirNumaralari').innerHTML = html;
+            document.getElementById('vurguIcerik').innerHTML = ''; 
+        }
+
+        function scrollSenkronizeEt() {
+            const editor = document.getElementById('kodEditoru');
+            document.getElementById('satirNumaralari').scrollTop = editor.scrollTop;
+            document.getElementById('vurguKatmani').scrollTop = editor.scrollTop;
+        }
+
+        function konsolGirdisiAl() {
+            return new Promise((resolve) => {
+                const konsol = document.getElementById('konsol-icerik') || document.getElementById('konsolCiktisi');
+                const girdiAlani = document.createElement('div');
+                girdiAlani.className = "flex items-center gap-2 mt-1 mb-2 text-emerald-400";
+                girdiAlani.innerHTML = '<span class="text-emerald-500 font-bold">Cevap:</span><input type="text" class="flex-1 bg-transparent border-b border-emerald-700 outline-none text-emerald-300 font-bold ml-2" autofocus autocomplete="off">';
+                konsol.appendChild(girdiAlani);
+                const inputEl = girdiAlani.querySelector('input');
+                inputEl.focus();
+                konsol.scrollTop = konsol.scrollHeight;
+                inputEl.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        const deger = inputEl.value;
+                        girdiAlani.innerHTML = '<span class="text-emerald-500 font-bold">Cevap:</span> <span class="text-slate-300 font-bold ml-2">' + deger + '</span>';
+                        resolve(deger);
+                    }
+                });
+            });
+        }
+
+        function hatalariGoster(hatalar) {
+            const konsol = document.getElementById('konsolCiktisi');
+            let html = '<div class="mt-4 p-3 bg-red-900/40 border border-red-700 rounded-lg text-slate-300 relative shadow-xl"><div class="font-bold text-red-500 mb-4">❌ Sistem Hatası Tespit Edildi!</div><div class="flex flex-col gap-3">';
+            let vurguHtml = '';
+            hatalar.forEach((hata) => {
+                let satirMesaji = hata.satir >= 0 ? `(Bu hata kodun ${hata.satir + 1}. satırında tespit edildi)` : `(Hata satırı bulunamadı)`;
+                html += `<div class="flex items-start gap-2 border-l-2 border-red-600 pl-2"><span class="bg-red-600 text-white text-[10px] px-2 py-0.5 rounded font-bold shadow whitespace-nowrap mt-0.5">HATA</span><div class="leading-relaxed flex flex-col"><span class="text-red-300 font-bold text-sm">${hata.mesaj}</span><span class="text-red-400/90 text-xs mt-1 font-mono font-bold">${satirMesaji}</span></div></div>`;
+                if (hata.satir >= 0) vurguHtml += `<div class="absolute left-0 w-full bg-red-600/40 border-y-2 border-red-500 pointer-events-none flex items-center justify-end pr-4" style="top: ${(hata.satir * 24) + 16}px; height: 24px; z-index: 5;"><span class="bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow animate-pulse">HATA BURADA</span></div>`;
+            });
+            konsol.innerHTML += html + '</div></div>';
+            document.getElementById('vurguIcerik').innerHTML = vurguHtml;
+            konsol.scrollTop = konsol.scrollHeight;
+        }
+
+        async function calistir() {
+            const kod = document.getElementById('kodEditoru').value;
+            const konsol = document.getElementById('konsolCiktisi');
+            const calistirButonu = document.getElementById('btnCalistir');
+            calistirButonu.disabled = true;
+            konsol.innerHTML = '';
+            document.getElementById('vurguIcerik').innerHTML = '';
+            
+            let cevrilmisKod = kod
+                .replace(/(yazdir|kirmiziYazdir|yesilYazdir|sariYazdir|maviYazdir)\s*\((.*?)\)\s*;?\s*cevapGirisi\s*;?/g, '$1($2); girilenCevap = await konsolGirdisiAl();')
+                .replace(/\bgirilenCevap\b/ig, 'girilenCevap')
+                .replace(/\bbekle\s*\((.*?)\)/g, 'await bekle($1)')
+                .replace(/\bdegilse eger\b/g, 'else if')
+                .replace(/\bdegisken\b/g, 'let')
+                .replace(/\bsabit\b/g, 'const')
+                .replace(/\byazdir\b/g, 'console.log')
+                .replace(/\beger\b/g, 'if')
+                .replace(/\bdegilse\b/g, 'else')
+                .replace(/\bislem\b/g, 'function')
+                .replace(/\bdondur\b/g, 'return')
+                .replace(/\bdogru\b/g, 'true')
+                .replace(/\byanlis\b/g, 'false')
+                .replace(/\bsurece\b/g, 'while')
+                .replace(/\bdongu\b/g, 'for')
+                .replace(/\bve\b/g, '&&')
+                .replace(/\bveya\b/g, '||');
+                
+            const orijinalLog = console.log;
+            console.log = function(...args) {
+                const cikti = args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : arg).join(' ');
+                konsol.innerHTML += '<div class="mb-1 text-slate-200 font-bold">> ' + cikti + '</div>';
+                konsol.scrollTop = konsol.scrollHeight;
+                orijinalLog.apply(console, args);
+            };
+            
+            try {
+                const AsenkronIslem = Object.getPrototypeOf(async function(){}).constructor;
+                await new AsenkronIslem(prefixSatirlari.join('\n') + '\n' + cevrilmisKod)();
+            } catch (hata) {
+                let msg = hata.message;
+                if(msg.includes('Unexpected token')) msg = 'Yazım hatası tespit edildi (Eksik veya fazla sembol, parantez olabilir).';
+                else if(msg.includes('is not defined')) msg = 'Tanımsız komut veya değişken kullanılmış.';
+                else if(msg.includes('Unexpected string')) msg = 'İfadeler arasında virgül (,) veya artı (+) işareti unutulmuş olabilir.';
+                else if(msg.includes('await is only valid in async')) msg = 'Asenkron çökmesi! Lütfen cevapGirisi komutunu fonksiyon (islem) blokları içinde KULLANMAYIN. Kodu ana akışta dümdüz yazın.';
+                
+                let hSatiri = -1;
+                const lines = kod.split('\n').length;
+                if (hata.lineNumber !== undefined) {
+                    hSatiri = hata.lineNumber - prefixSatirlari.length - 2;
+                } else if (hata.stack) {
+                    const match = [...hata.stack.matchAll(/<anonymous>:(\d+):\d+/g)];
+                    if (match.length > 0) hSatiri = parseInt(match[0][1], 10) - prefixSatirlari.length - 2;
+                }
+                if (hSatiri < 0 || hSatiri >= lines) hSatiri = -1;
+                
+                hatalariGoster([{satir: hSatiri, mesaj: msg}]);
+            } finally {
+                console.log = orijinalLog;
+                calistirButonu.disabled = false;
+            }
+        }
+
+        document.getElementById('kodEditoru').addEventListener('keydown', function(e) {
+            if (e.key == 'Tab') {
+                e.preventDefault();
+                var start = this.selectionStart, end = this.selectionEnd;
+                this.value = this.value.substring(0, start) + "    " + this.value.substring(end);
+                this.selectionStart = this.selectionEnd = start + 4;
+                editorGuncelle();
+            }
+        });
+
+        window.onload = () => editorGuncelle();
+
+        function koduKaydet() {
+            const kod = document.getElementById('kodEditoru').value;
+            if (kod.trim() === "") { alert("Lütfen kod yazın!"); return; }
+            let cevrilmisKod = kod.replace(/(yazdir|kirmiziYazdir|yesilYazdir|sariYazdir|maviYazdir)\s*\((.*?)\)\s*;?\s*cevapGirisi\s*;?/g, '$1($2); girilenCevap = await konsolGirdisiAl();')
+                .replace(/\bdegisken\b/g, 'let').replace(/\bsabit\b/g, 'const').replace(/\byazdir\b/g, 'console.log')
+                .replace(/\beger\b/g, 'if').replace(/\bdegilse\b/g, 'else').replace(/\bislem\b/g, 'function').replace(/\bdondur\b/g, 'return')
+                .replace(/\bsurece\b/g, 'while').replace(/\bdongu\b/g, 'for').replace(/\bve\b/g, '&&').replace(/\bveya\b/g, '||');
+            const guvenliKod = cevrilmisKod.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\$/g, '\\$');
+            const arkaplanCss = mevcutArkaplan ? `body { background-image: url('${mevcutArkaplan}'); background-size: cover; background-position: center; } #konsol-icerik { background-color: rgba(0,0,0,0.65); text-shadow: 2px 2px 4px #000; }` : `body { background-color: #0f172a; }`;
+            const tamHtml = `<!DOCTYPE html><html lang="tr"><head><meta charset="UTF-8"><title>Turk-Script Uygulaması</title><style>body,html{margin:0;padding:0;height:100%;color:#f8fafc;font-family:monospace;overflow:hidden}${arkaplanCss}#konsol-icerik{position:absolute;top:0;left:0;width:100%;height:100%;padding:30px;box-sizing:border-box;overflow-y:auto;z-index:10;font-size:16px;line-height:1.8}input{background:rgba(0,0,0,0.4);border:none;border-bottom:2px solid #10b981;color:#6ee7b7;outline:none;font-weight:bold;padding:2px 8px}</style></head><body><div id="konsol-icerik"></div><script>const prefixSatirlari = ${JSON.stringify(prefixSatirlari)}; ${konsolGirdisiAl.toString()}
+            window.onload = async function() { const konsol = document.getElementById('konsol-icerik'); const orijinalLog = console.log; console.log = function(...args) { const cikti = args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : arg).join(' '); konsol.innerHTML += '<div>> ' + cikti + '</div>'; konsol.scrollTop = konsol.scrollHeight; };
+            try { const AsenkronIslem = Object.getPrototypeOf(async function(){}).constructor; await new AsenkronIslem(prefixSatirlari.join('\\n') + '\\n' + \`${guvenliKod}\`)(); } catch (hata) { konsol.innerHTML += '<div style="color:#ef4444">> HATA: ' + hata.message + '</div>'; } finally { console.log = orijinalLog; } };<\/script></body></html>`;
+            const link = document.createElement('a');
+            link.href = window.URL.createObjectURL(new Blob([tamHtml], { type: 'text/html' }));
+            link.download = `turkscript-uygulama.html`; link.click();
+        }
+    </script>
+    </template>
+
 </body>
 </html>
